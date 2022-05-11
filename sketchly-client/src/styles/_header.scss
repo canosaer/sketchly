@@ -18,27 +18,38 @@
 	// 	grid-template-columns: minmax(0,1fr) minmax(0,1.1fr);
 	// }
 
-	&__link{
-		// color: var(--dark-color);
-	}
-
 	&__heading{
-		// font-size: var(--heading-font-small);
-		// color: var(--dark-color);
 		grid-row: 1/2;
         grid-column: 1/2;
 		place-self: center center;
 		font-family: 'India Rose', cursive;
-        font-size: 1.5rem;
-		// text-transform: var(--text-transform);
-		
+        font-size: 1.85rem;
 	}
+}
+
+.info{
+    @include mixins.default-grid;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    place-self: center end;
+    background: none;
+    outline: none;
+    border-radius: 999rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    border: 2px black solid;
+    cursor: pointer;
+
+    &__text{
+        place-self: center center;
+        font-weight: bold;
+    }
 }
 
 .toggle{
 	height: 1.5rem;
 	width: 1.75rem;
-	justify-self: left;
+	place-self: center start;
 	z-index: 3;
 	border-radius: 0.2rem;
 	padding: 0;
@@ -116,11 +127,9 @@
 	}
 
 	&__list{
-		margin-top: 8.9rem;
+		margin-top: 6rem;
 		@include mixins.default-grid;
-		grid-auto-rows: 4.15rem;
-		justify-content: right;
-		font-size: 1.5rem;
+		grid-auto-rows: 10rem;
 
 		@include mixins.medium-screen{
 			display: flex;
@@ -136,22 +145,22 @@
 	}
 
 	&__link{
-		color: var(--light-color);
-		place-self: center left;
+		color: black;
+		place-self: center right;
 		font-weight: bold;
 		text-transform: uppercase;
         transition: color 250ms ease-in-out;
 		position: relative;
-		font-family: var(--heading-font);
-		font-size: var(--menu-font-mobile);
+		font-family: 'India Rose', cursive;
+		font-size: 1.6rem;
 
 		@include mixins.medium-screen{
-			font-size: var(--menu-font-size);
+			// font-size: var(--menu-font-size);
 		}
 		
 
 		&:hover{
-			color: var(--dark-color);
+			// color: var(--dark-color);
 		}
 
 		&:hover .menu__bar{
@@ -163,7 +172,7 @@
 	&__bar{
 		position: absolute;
 		left: 0;
-		// top: var(--bar-spacing-mobile);
+		top: 1.85rem;
 		height: 3px;
 		width: 100%;
 		background-color: black;

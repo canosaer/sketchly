@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import { useTypingHeadlines } from 'use-typing-headlines';
 
 export default function Header() {
@@ -64,7 +65,11 @@ export default function Header() {
 
             <nav className={sidebarStyles}>
                 <ul className="menu__list">
-
+                    <li className="menu__item">
+                        <Link to="/" className="menu__link">Home <div className="menu__bar"></div> </Link>
+                        <Link to="/" className="menu__link">Play Now <div className="menu__bar"></div> </Link>
+                        <Link to="/" className="menu__link">Games <div className="menu__bar"></div> </Link>
+                    </li>
                 </ul>
             </nav>
 
@@ -83,6 +88,8 @@ export default function Header() {
             <h1 className="header__heading">
                 { animation ? headline : 'sketch.ly' }
             </h1>
+
+            <button className="info"><p className="info__text">i</p></button>
         </header>
     )
 }
