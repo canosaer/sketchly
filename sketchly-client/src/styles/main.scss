@@ -21,10 +21,11 @@ TABLE OF CONTENTS:
 @use 'mixins';
 
 /* 1. Partials =============================== */
-
+@use 'header';
+@use 'title-screen';
 
 /* 2. Fonts ================================== */
-
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
 
 /* 3. General ================================ */
@@ -47,6 +48,7 @@ body{
 }
 
 main{
+	position: relative;
 	@include mixins.default-grid;
 }
 
