@@ -9,6 +9,7 @@
 	width: 100%;
 	place-self: center center;
     grid-template-columns: 1fr;
+    grid-template-rows: 1rem;
 
     // @include mixins.medium-screen{
 	// 	grid-template-columns: minmax(0,1fr) minmax(0,1.5fr);
@@ -24,6 +25,7 @@
 		place-self: center center;
 		font-family: 'India Rose', cursive;
         font-size: 1.85rem;
+        color: var(--spearmint);
 	}
 }
 
@@ -37,12 +39,13 @@
     border-radius: 999rem;
     height: 1.5rem;
     width: 1.5rem;
-    border: 2px black solid;
+    border: 2px var(--spearmint) solid;
     cursor: pointer;
 
     &__text{
         place-self: center center;
         font-weight: bold;
+        color: var(--spearmint);
     }
 }
 
@@ -68,7 +71,7 @@
 		position: absolute;
 		width: 100%;
 		height: 3px;
-		background-color: black;
+		background-color: var(--spearmint);
 		transition: background-color 0.25s ease-in-out, transform 0.25s ease-in-out, top 0.25s ease-in-out;
 
 		&_0{
@@ -85,7 +88,7 @@
 		}
 
 		&_0.toggle__bar_open{
-			// background-color: var(--light-color);
+			background-color: var(--dark-blue);
 			transform: rotate(-45deg) translateY(-50%);
 			top: 50%;
 		}
@@ -95,7 +98,7 @@
 		}
 
 		&_2.toggle__bar_open{
-			// background-color: var(--light-color);
+			background-color: var(--dark-blue);
 			transform: rotate(45deg) translateY(-50%);
 			top: 50%;
 		}
@@ -145,7 +148,7 @@
 	}
 
 	&__link{
-		color: black;
+		color: var(--dark-blue);
 		place-self: center right;
 		font-weight: bold;
 		text-transform: uppercase;
@@ -172,10 +175,10 @@
 	&__bar{
 		position: absolute;
 		left: 0;
-		top: 1.85rem;
+		top: 1.8rem;
 		height: 3px;
 		width: 100%;
-		background-color: black;
+		background-color: var(--dark-blue);
 		transition: transform 250ms ease-out;
 		transform-origin: 100% 50%;
 		transform: scaleX(0);
@@ -187,7 +190,7 @@
 	}
 
 	&_open{
-		background: white;
+		background: var(--spearmint);
 		width: 19.5rem;
 		opacity: 1;
 		visibility: unset;
