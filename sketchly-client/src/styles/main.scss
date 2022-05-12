@@ -48,8 +48,8 @@ body{
 }
 
 main{
-	position: relative;
 	@include mixins.default-grid;
+	position: relative;
 }
 
 /* 4. Utility ================================ */

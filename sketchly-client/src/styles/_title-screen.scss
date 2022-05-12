@@ -2,6 +2,18 @@
 @use 'mixins';
 
 .title-screen{
+    grid-template-rows: auto var(--title-height);
 
+  &__text{
+      color: var(--spearmint);
+      grid-column: 1/2;
+      grid-row: 2/3;
+      place-self: center center;
+  }
 
+  &__button{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    place-self: end center;
+  }
 }
