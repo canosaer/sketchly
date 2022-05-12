@@ -26,6 +26,8 @@ TABLE OF CONTENTS:
 
 /* 2. Fonts ================================== */
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 
 
 /* 3. General ================================ */
@@ -39,8 +41,8 @@ a{
 }
 
 body{
-	background: var(--dark-blue);
-	font-family: 'Lucida Sans', sans-serif;
+	
+	font-family: 'Open Sans', sans-serif;
 }
 
 #root{
@@ -48,8 +50,12 @@ body{
 }
 
 main{
+	background: var(--dark-blue);
 	@include mixins.default-grid;
 	position: relative;
+	max-width: 414px;
+	place-self: center center;
+	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* 4. Utility ================================ */

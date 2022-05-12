@@ -1,11 +1,9 @@
 import React, { useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Title() {
-    
-
-
     
     return(
         <>
@@ -13,7 +11,7 @@ export default function Title() {
             <main className="title-screen">
                 <Header />
                 <p className="title-screen__text">It's like the classic "Telephone" game, but with drawing. Play alone or with your friends!</p>
-                <button className="title-screen__button">Play Now</button>
+                <button className="title-screen__button"><FontAwesomeIcon className="title-screen__icon" icon={"play"} /> Play</button>
             </main>
         </>
         

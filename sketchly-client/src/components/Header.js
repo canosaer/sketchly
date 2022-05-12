@@ -67,7 +67,7 @@ export default function Header() {
                 <ul className="menu__list">
                     <li className="menu__item">
                         <Link to="/" className="menu__link">Home <div className="menu__bar"></div> </Link>
-                        <Link to="/" className="menu__link">Play Now <div className="menu__bar"></div> </Link>
+                        <Link to="/" className="menu__link">Play <div className="menu__bar"></div> </Link>
                         <Link to="/" className="menu__link">Games <div className="menu__bar"></div> </Link>
                     </li>
                 </ul>

@@ -18,9 +18,9 @@ function App() {
   const height = useWindowDimensions().height
 
   useEffect(() => {
-    const titleHeight = height - 74
+    // const titleHeight = height - 99
     cssRootVariables.setProperty('--height', `${height}px`)
-    cssRootVariables.setProperty('--title-height', `${titleHeight}px`)
+    // cssRootVariables.setProperty('--title-height', `${titleHeight}px`)
   }, []);
 
   return (
