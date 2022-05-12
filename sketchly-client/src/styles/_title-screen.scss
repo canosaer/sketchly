@@ -2,14 +2,14 @@
 @use 'mixins';
 
 .title-screen{
-    background: linear-gradient(var(--spearmint), var(--dark-blue));
+    background: linear-gradient(var(--spearmint), var(--baby-blue));
     grid-template-rows: max-content auto max-content;
-    height: 100vh;
+    min-height: 100vh;
     font-family: var(--heading-font);
     
 
   &__text{
-      color: var(--baby-blue);
+      color: var(--dark-blue);
       grid-column: 1/2;
       grid-row: 2/3;
       place-self: center center;
@@ -18,25 +18,22 @@
       margin: 7.1%;
   }
 
-  &__button{
+  &__link{
+    display: flex;
+    align-items: center;
     grid-column: 1/2;
     place-self: end center;
     margin-bottom: 2.35rem;
-    background: var(--baby-blue);
+    background: var(--dark-blue);
     font-weight: bold;
     font-family: var(--heading-font);
-    padding: 0.5rem 2rem;
-    border: none;
+    padding: 0.65rem 1.5rem;
     border-radius: 0.7rem;
     font-size: 1.25rem;
-    cursor: pointer;
-  }
-
-  &__link{
-    color: var(--dark-blue);
+    color: var(--baby-blue);
   }
 
   &__icon{
-    margin-right: 0.55rem;
+    margin-right: 0.75rem;
   }
 }

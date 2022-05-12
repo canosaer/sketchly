@@ -8,6 +8,7 @@ import {
 
 import Title from './views/Title'
 import CurrentGames from './views/CurrentGames'
+import Play from './views/Play'
 
 import React, {useEffect} from 'react';
 
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Title />} />
           <Route path="/current-games" element={<CurrentGames />} />
+          <Route path="/play" element={<Play />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -10,7 +10,7 @@ export default function Title() {
             <main className="title-screen">
                 <Header />
                 <p className="title-screen__text">It's like the classic "Telephone" game, but with drawing. Play alone or with your friends!</p>
-                <button className="title-screen__button"><Link className="title-screen__link" to="/current-games"><FontAwesomeIcon className="title-screen__icon" icon={"play"} /> Play</Link></button>
+                <Link className="title-screen__link" to="/current-games"><FontAwesomeIcon className="title-screen__icon" icon={"play"} /> Play</Link>
             </main>
         </>
         

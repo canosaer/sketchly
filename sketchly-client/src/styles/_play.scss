@@ -1,0 +1,14 @@
+@use 'variables';
+@use 'mixins';
+
+.play{
+    background: linear-gradient(var(--spearmint), var(--baby-blue));
+    grid-template-rows: max-content auto max-content;
+    min-height: 100vh;
+    font-family: var(--heading-font);
+
+    &__canvas{
+        margin-top: 3rem;
+        justify-self: center;
+    }
+}

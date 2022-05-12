@@ -88,7 +88,7 @@
 		}
 
 		&_0.toggle__bar_open{
-			background-color: var(--baby-blue);
+			background-color: var(--beige);
 			transform: rotate(-45deg) translateY(-50%);
 			top: 50%;
 		}
@@ -98,7 +98,7 @@
 		}
 
 		&_2.toggle__bar_open{
-			background-color: var(--baby-blue);
+			background-color: var(--beige);
 			transform: rotate(45deg) translateY(-50%);
 			top: 50%;
 		}
@@ -148,7 +148,7 @@
 	}
 
 	&__link{
-		color: var(--baby-blue);
+		color: var(--dark-blue);
 		place-self: center right;
 		font-weight: bold;
 		text-transform: uppercase;
@@ -178,7 +178,7 @@
 		top: 1.8rem;
 		height: 3px;
 		width: 100%;
-		background-color: var(--baby-blue);
+		background-color: var(--dark-blue);
 		transition: transform 250ms ease-out;
 		transform-origin: 100% 50%;
 		transform: scaleX(0);
@@ -190,7 +190,7 @@
 	}
 
 	&_open{
-		background: var(--dark-blue);
+		background: var(--baby-blue);
 		width: 19.5rem;
 		opacity: 1;
 		visibility: unset;

@@ -2,8 +2,73 @@
 @use 'mixins';
 
 .current-games{
-    background: linear-gradient(var(--spearmint), var(--dark-blue));
-    grid-template-rows: max-content auto max-content;
-    height: 100vh;
+    background: linear-gradient(var(--spearmint), var(--baby-blue));
+    grid-auto-rows: max-content;
+    min-height: 100vh;
     font-family: var(--heading-font);
+    color: var(--dark-blue);
+
+    &__heading{
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    &__game-display{
+		@include mixins.default-grid;
+		padding: 2rem 3%;
+		grid-column-gap: 3%;
+		grid-row-gap: 8rem;
+		justify-content: center;
+		grid-template-columns: repeat(auto-fit, minmax(21.35rem, 0.29fr));
+        margin-bottom: 8rem;
+
+		// @include mixins.medium-screen{
+		// 	grid-column: 2/3;
+		// }
+	}
+}
+
+.game{
+    @include mixins.default-grid;
+    grid-auto-rows: max-content;
+    position: relative;
+    background-color: var(--dark-blue);
+    color: var(--baby-blue);
+    cursor: pointer;
+    height: 10.5rem;
+    text-align: center;
+
+    &_inactive{
+        opacity: 0.6;
+        cursor: default;
+    }
+
+    &__name{
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 1rem 0 0.75rem;
+    }
+
+    &__turn{
+        margin-bottom: 0.75rem;
+    }
+
+    &__password{
+        margin-bottom: 0.75rem;
+    }
+
+    &__updated{
+        margin-bottom: 0.75rem;
+    }
+
+    &__contributors{
+        color: var(--dark-blue);
+        cursor: default;
+        position: absolute;
+        text-align: left;
+        line-height: 1.35;
+        top: 11rem;
+    }
 }
