@@ -50,7 +50,6 @@ body{
 }
 
 main{
-	background: var(--dark-blue);
 	@include mixins.default-grid;
 	position: relative;
 	max-width: 414px;
