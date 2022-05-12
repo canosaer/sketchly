@@ -35,6 +35,16 @@ app.get('/insert', async (req,res) => {
   res.send('inserted data')
 })
 
+app.get('/read', (req, res) => {
+  GameModel.find({}, (err, result) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(result)
+    }
+  })
+})
+
 app.listen(port, () => {
   console.log(`Sketchly server listening on port ${port}`)
 })
