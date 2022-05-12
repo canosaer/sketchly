@@ -1,0 +1,9 @@
+@use 'variables';
+@use 'mixins';
+
+.current-games{
+    background: linear-gradient(var(--spearmint), var(--dark-blue));
+    grid-template-rows: max-content auto max-content;
+    height: 100vh;
+    font-family: var(--heading-font);
+}

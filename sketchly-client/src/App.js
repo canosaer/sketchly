@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import Title from './views/Title'
+import CurrentGames from './views/CurrentGames'
 
 import React, {useEffect} from 'react';
 
@@ -28,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Title />} />
+          <Route path="/current-games" element={<CurrentGames />} />
         </Routes>
       </BrowserRouter>
     </>

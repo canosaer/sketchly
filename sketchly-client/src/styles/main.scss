@@ -23,6 +23,7 @@ TABLE OF CONTENTS:
 /* 1. Partials =============================== */
 @use 'header';
 @use 'title-screen';
+@use 'current-games';
 
 /* 2. Fonts ================================== */
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
@@ -52,6 +53,7 @@ body{
 main{
 	@include mixins.default-grid;
 	position: relative;
+	width: 100%;
 	max-width: 414px;
 	place-self: center center;
 	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
