@@ -1,20 +1,5 @@
 const mongoose = require('mongoose')
 
-const pointSchema = new mongoose.Schema({
-    color: {
-        type: String
-    },
-    time: {
-        type: Number,
-    },
-    x: {
-        type: Number,
-    },
-    y: {
-        type: Number,
-    },
-})
-
 const SketchlySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -30,14 +15,23 @@ const SketchlySchema = new mongoose.Schema({
     phrases: [{
         type: String,
     }],
-    images: [[pointSchema]],
+    images: [{
+        type: String,
+    }],
     active: {
         type: Boolean,
         required: true
     },
+    onTurn: {
+        type: String,
+    },
     password: {
         type: String,
-    }
+    },
+    flagged: {
+        type: Boolean,
+        required: true
+    },
 }, {timestamps: true})
 
 const GameModel = mongoose.model('games', SketchlySchema)
