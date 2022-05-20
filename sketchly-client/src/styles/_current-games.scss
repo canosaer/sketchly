@@ -8,11 +8,20 @@
     font-family: var(--heading-font);
     color: var(--dark-blue);
 
+    &__new{
+        @include mixins.start-button;
+        place-self: center center;
+        margin: 3.95rem 0;
+    }
+
     &__heading{
         text-align: center;
-        margin-top: 2rem;
         font-size: 1.5rem;
         font-weight: bold;
+
+        &_start{
+            margin-top: 2rem;
+        }
     }
 
     &__game-display{
@@ -39,6 +48,7 @@
     cursor: pointer;
     height: 10.5rem;
     text-align: center;
+    border-radius: 0.7rem;
 
     &_inactive{
         opacity: 0.6;

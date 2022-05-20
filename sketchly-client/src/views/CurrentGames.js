@@ -9,7 +9,9 @@ export default function CurrentGames() {
         <>
             <main className="current-games">
                 <Header />
-                <h1 className="current-games__heading">Current Games</h1>
+                <h1 className="current-games__heading current-games__heading_start">Start a New Game</h1>
+                <Link className="current-games__new" to="/current-games"><FontAwesomeIcon className="title-screen__icon" icon={"play"} /> Start</Link>
+                <h1 className="current-games__heading current-games__heading_join">Join a Current Game</h1>
                 <div className="current-games__game-display">
                     <Link to="/play" className="game game_active">
                         <h2 className="game__name">Brave Traveler</h2>

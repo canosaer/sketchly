@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
-import { useTypingHeadlines } from 'use-typing-headlines';
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { Pagination, Navigation, Autoplay } from "swiper";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
 
 export default function Header() {
-    const [menuOpen, setMenuOpen ] = useState(false);
-    const [toggleBars, setToggleBars ] = useState([]);
-    const [animation, setAnimation] = useState(true)
+    const [menuOpen, setMenuOpen ] = useState(false)
+    const [toggleBars, setToggleBars ] = useState([])
+    const [infoOpen, setInfoOpen ] = useState(false)
 
     const sidebarStyles = menuOpen ? 'menu menu_open' : 'menu'
-    const dimmerStyles = menuOpen ? 'dimmer dimmer_open' : 'dimmer'
+    const dimmerStyles = menuOpen || infoOpen ? 'dimmer dimmer_open' : 'dimmer'
+    const infoStyles = infoOpen ? 'info__window info__window_open' : 'info__window'
+    const infoButtonStyles = infoOpen ? 'info info_open' : 'info'
+
+    let slides = ['','','','',]
+    slides.fill('swiper-slide slide-')
+
 
     const lockScroll = () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -28,13 +41,21 @@ export default function Header() {
         let toggleArray = ['','','']
         toggleArray.fill('toggle__bar')
 
-        if(menuOpen){
+        if(menuOpen || infoOpen){
             window.scrollTo(0,0)
             lockScroll()
-            for(let i=0;i<3; i++){
-                toggleArray[i] = toggleArray[i] + ` toggle__bar_${i} toggle__bar_open`
+            if(menuOpen){
+                for(let i=0;i<3; i++){
+                    toggleArray[i] = toggleArray[i] + ` toggle__bar_${i} toggle__bar_open`
+                }
+                setToggleBars(toggleArray)
             }
-            setToggleBars(toggleArray)
+            if(infoOpen){
+                for(let i=0;i<3; i++){
+                    toggleArray[i] = toggleArray[i] + `hidden`
+                }
+                setToggleBars(toggleArray)
+            }
         }
         else{
             unlockScroll()
@@ -44,21 +65,40 @@ export default function Header() {
             setToggleBars(toggleArray)
         } 
 
-    }, [menuOpen])
+    }, [menuOpen, infoOpen])
 
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-          setAnimation(false)
-        }, 2000);
-        return () => clearTimeout(timer);
-      }, []);
-
-    const [headline] = useTypingHeadlines([
-        '',
-        'sketch.ly'
-      ]);
-
+    const renderSlide = (slide) => {
+        switch(slide) {
+            case 1:
+                return (
+                    <div className="help">
+                        <h2 className="help__heading">Time To Draw</h2>
+                        <p className="help__text">If you get a weird sentence, you have 80 seconds to draw it!</p>
+                    </div>
+                );
+            case 2:
+                return (
+                    <div className="help">
+                        <h2 className="help__heading">Time To Guess</h2>
+                        <p className="help__text">If you get a weird drawing, you have 80 seconds to guess what it is!</p>
+                    </div>
+                );
+            case 3:
+                return (
+                    <div className="help">
+                        <h2 className="help__heading">See What Happened</h2>
+                        <p className="help__text">After you draw or guess, you'll see what happened so far in the game!</p>
+                    </div>
+                );
+            case 4:
+                return(
+                    <div className="help">
+                        <h2 className="help__heading">Just One</h2>
+                        <p className="help__text">You can only draw or guess once in each game. Find other games to join or check out completed games to see what weird stuff people did!</p>
+                    </div>
+                );
+        }
+    }
 
     return(
         <header className="header">
@@ -74,7 +114,7 @@ export default function Header() {
             </nav>
 
             <div className={dimmerStyles}></div>
-            <button className="toggle" onClick={() => setMenuOpen(!menuOpen)}>
+            <button className="toggle" onClick={infoOpen ? null : () => setMenuOpen(!menuOpen)}>
                 {toggleBars.map((bar, i) => {
                     const key = `bar--${i}`
 
@@ -85,11 +125,33 @@ export default function Header() {
             </button>
 
 
-            <h1 className="header__heading">
-                { animation ? headline : 'sketch.ly' }
-            </h1>
+            <Link to="/" className="header__heading">
+               sketch.ly
+            </Link>
 
-            <button className="info"><p className="info__text">i</p></button>
+            <button className={infoButtonStyles} onClick={menuOpen ? null : () => setInfoOpen(!infoOpen)}><p className="info__text">i</p></button>
+            <Swiper
+                pagination={{
+                    type: "progressbar",
+                }}
+                navigation={true}
+                modules={[Pagination, Navigation, Autoplay]}
+                className={infoStyles}
+                loop={true}
+                autoplay={{
+                    delay: 3000,
+                }}
+            >
+                {slides.map((slide, i) => {
+                    const key = `slide--${i}`
+
+                    return(
+                        <SwiperSlide key={key} tag="section" className={slide+(i+1)}>
+                            {renderSlide(i+1)}
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
         </header>
     )
 }

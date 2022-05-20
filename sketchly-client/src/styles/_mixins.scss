@@ -46,3 +46,15 @@
   height: 0;
   position: relative;
 }
+
+@mixin start-button{
+  display: flex;
+  align-items: center;
+  background: var(--dark-blue);
+  font-weight: bold;
+  font-family: var(--heading-font);
+  padding: 0.65rem 1.5rem;
+  border-radius: 0.7rem;
+  font-size: 1.25rem;
+  color: var(--baby-blue);
+}
