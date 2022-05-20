@@ -1,0 +1,27 @@
+@use 'variables';
+@use 'mixins';
+
+.timer{
+    position: relative;
+
+    &__stopwatch{
+        font-size: 3rem;
+    }
+
+    &__circle{
+        @include mixins.default-grid;
+        background-color: whitesmoke;
+        border-radius: 999rem;
+        width: 2rem;
+        height: 1.8rem;
+        position: absolute;
+        top: 0.9rem;
+        left: 0.26rem;
+    }
+
+    &__seconds{
+        place-self: center center;
+        font-size: 1.1rem;
+        
+    }
+}

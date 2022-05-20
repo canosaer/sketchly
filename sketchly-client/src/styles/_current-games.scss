@@ -11,7 +11,13 @@
     &__new{
         @include mixins.start-button;
         place-self: center center;
-        margin: 3.95rem 0;
+        margin: 2rem 0 3.95rem 0;
+        transition: all 250ms ease-in-out;
+
+        &:hover{
+            background-color: var(--baby-blue);
+            color: var(--dark-blue);
+        }
     }
 
     &__heading{
@@ -50,9 +56,18 @@
     text-align: center;
     border-radius: 0.7rem;
 
+    transition: all 250ms ease-in-out;
+
+    &:hover{
+        background-color: var(--baby-blue);
+        color: var(--dark-blue);
+    }
+
     &_inactive{
         opacity: 0.6;
         cursor: default;
+        pointer-events: none;
+
     }
 
     &__name{

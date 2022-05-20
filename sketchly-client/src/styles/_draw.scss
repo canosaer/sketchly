@@ -1,7 +1,7 @@
 @use 'variables';
 @use 'mixins';
 
-.play{
+.draw{
     background: linear-gradient(var(--spearmint), var(--baby-blue));
     grid-template-rows: max-content auto max-content;
     min-height: 100vh;

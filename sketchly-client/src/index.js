@@ -4,10 +4,10 @@ import App from './App';
 import {Store} from './store/store'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faEraser, faXmark, faStopwatch } from '@fortawesome/free-solid-svg-icons'
 // import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faPlay)
+library.add(faPlay, faEraser, faXmark, faStopwatch)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

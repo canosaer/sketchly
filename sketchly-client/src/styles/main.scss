@@ -1,6 +1,6 @@
 /* 
 ==============================================
-CONTENT:	
+CONTENT:	Sketchly
 AUTHOR:		Eric Canosa
 ==============================================
 
@@ -24,7 +24,8 @@ TABLE OF CONTENTS:
 @use 'header';
 @use 'title-screen';
 @use 'current-games';
-@use 'play';
+@use 'draw';
+@use 'timer';
 
 /* 2. Fonts ================================== */
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
