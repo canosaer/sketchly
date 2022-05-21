@@ -3,9 +3,13 @@
 
 .timer{
     position: relative;
+    grid-row: 1/2;
+    grid-column: 1/2;
+    place-self: center center;
 
     &__stopwatch{
         font-size: 3rem;
+        color: var(--dark-blue);
     }
 
     &__circle{
@@ -16,7 +20,7 @@
         height: 1.8rem;
         position: absolute;
         top: 0.9rem;
-        left: 0.26rem;
+        left: 0.285rem;
     }
 
     &__seconds{

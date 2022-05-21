@@ -1,5 +1,6 @@
 const data = {
-    activeTags: [],
+    prompt: '',
+    color: '',
 }
 
 export default data
