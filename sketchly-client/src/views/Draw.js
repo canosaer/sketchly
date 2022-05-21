@@ -5,42 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWindowDimensions } from '../utilities'
 import { Context } from '../store/store'
 import { useTimer } from 'react-timer-hook';
+import Timer from '../components/TImer'
 
 export default function Draw() {
 
     const [state, dispatch] = useContext(Context)
     const [quitMenuOpen, setQuitMenuOpen ] = useState(false)
+    const [penColor, setPenColor] = useState('black')
 
     const ref = useRef()
-
-    const dimmerStyles = quitMenuOpen ? 'dimmer dimmer_open' : 'dimmer'
-    const quitStyles = quitMenuOpen ? 'quit quit_open' : 'quit'
 
     const time = new Date()
     time.setSeconds(time.getSeconds() + 80)
 
-    const onExpireFunction = () => {
-        console.log('onExpire called')
-    }
-
-    const Timer = ({ expiryTimestamp }) => {
-        const {
-          seconds,
-          minutes,
-          start,
-        } = useTimer({ expiryTimestamp, onExpire: () => onExpireFunction()});
-      
-      
-        return (
-            <figure className="timer">
-                <FontAwesomeIcon className="timer__stopwatch" icon={"stopwatch"} />
-                <div className="timer__circle">
-                    <p className="timer__seconds">{seconds + (minutes*60)}</p>
-                </div>
-            </figure>
-                
-        )
-    }
+    const dimmerStyles = quitMenuOpen ? 'dimmer dimmer_open' : 'dimmer'
+    const quitStyles = quitMenuOpen ? 'quit quit_open' : 'quit'
 
     const lockScroll = () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -87,7 +66,7 @@ export default function Draw() {
                 </header>
                 <SignatureCanvas 
                     ref={ref}
-                    penColor='black'
+                    penColor={penColor}
                     canvasProps={{
                         // width: useWindowDimensions().width, 
                         width: 414,
@@ -98,16 +77,16 @@ export default function Draw() {
                 />
                 <section className="draw__bottom-row">
                     <div className="palette">
-                        <figure className="palette__black"></figure>
-                        <figure className="palette__gray"></figure>
-                        <figure className="palette__blue"></figure>
-                        <figure className="palette__green"></figure>
-                        <figure className="palette__red"></figure>
-                        <figure className="palette__yellow"></figure>
-                        <figure className="palette__orange"></figure>
-                        <figure className="palette__purple"></figure>
-                        <figure className="palette__pink"></figure>
-                        <figure className="palette__brown"></figure>
+                        <figure className="palette__color palette__color_black" onClick={() => setPenColor('black')}></figure>
+                        <figure className="palette__color palette__color_gray" onClick={() => setPenColor('gray')}></figure>
+                        <figure className="palette__color palette__color_blue" onClick={() => setPenColor('blue')}></figure>
+                        <figure className="palette__color palette__color_green" onClick={() => setPenColor('green')}></figure>
+                        <figure className="palette__color palette__color_red" onClick={() => setPenColor('red')}></figure>
+                        <figure className="palette__color palette__color_yellow" onClick={() => setPenColor('yellow')}></figure>
+                        <figure className="palette__color palette__color_orange" onClick={() => setPenColor('orange')}></figure>
+                        <figure className="palette__color palette__color_purple" onClick={() => setPenColor('purple')}></figure>
+                        <figure className="palette__color palette__color_pink" onClick={() => setPenColor('pink')}></figure>
+                        <figure className="palette__color palette__color_brown" onClick={() => setPenColor('brown')}></figure>
                     </div>
                     <button className="draw__submit"><FontAwesomeIcon className="draw__submit-icon" icon={"check"} /></button>
                 </section>
