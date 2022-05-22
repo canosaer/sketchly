@@ -129,7 +129,7 @@ export default function Header() {
                sketch.ly
             </Link>
 
-            <button className={infoButtonStyles} onClick={menuOpen ? null : () => setInfoOpen(!infoOpen)}><p className="info__text">i</p></button>
+            <button className={infoButtonStyles} onClick={menuOpen ? null : () => setInfoOpen(!infoOpen)}><p className="info__text">{infoOpen ? 'x' : 'i'}</p></button>
             <Swiper
                 pagination={{
                     type: "progressbar",
@@ -139,7 +139,7 @@ export default function Header() {
                 className={infoStyles}
                 loop={true}
                 autoplay={{
-                    delay: 3000,
+                    delay: 4000,
                 }}
             >
                 {slides.map((slide, i) => {
