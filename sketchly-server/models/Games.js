@@ -5,6 +5,9 @@ const SketchlySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    accessedBy: [{ 
+        type: String,
+    }],
     contributors: [{ 
         type: String,
     }],

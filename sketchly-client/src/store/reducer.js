@@ -1,9 +1,9 @@
 const reducer = (state, action) => {
     switch(action.type) {
-        case 'UPDATE_TAGS':
+        case 'UPDATE_PROMPT':
             return {
                 ...state,
-                activeTags: action.payload
+                prompt: action.payload
             }
         default:
             return state

@@ -9,6 +9,7 @@ import {
 import Title from './views/Title'
 import CurrentGames from './views/CurrentGames'
 import Draw from './views/Draw'
+import Guess from './views/Guess'
 
 import React, {useEffect} from 'react';
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<Title />} />
           <Route path="/current-games" element={<CurrentGames />} />
           <Route path="/draw" element={<Draw />} />
+          <Route path="/guess" element={<Guess />} />
         </Routes>
       </BrowserRouter>
     </>
