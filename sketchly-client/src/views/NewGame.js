@@ -8,6 +8,7 @@ export default function NewGame() {
 
     const [ name, setName ] = useState('')
     const [ games, setGames ] = useState([])
+    const [ error, setError ] = useState('none')
 
     const debouncedGameName = useDebounce(name, 500)
 
@@ -41,7 +42,9 @@ export default function NewGame() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button className="new-game__submit"><FontAwesomeIcon className="new-game__icon" icon={"play"} /><span className="new-game__submit-text">Create!</span></button>
+                <p className={error !== 'none' ? "new-game__error" : "new-game__error transparent"}>{error}</p>
+                <Link to="/draw" className="new-game__submit"><FontAwesomeIcon className="new-game__icon" icon={"play"} /><span className="new-game__submit-text">Begin</span></Link>
+                
             </main>
         </>
         
