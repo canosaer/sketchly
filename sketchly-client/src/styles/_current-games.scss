@@ -9,16 +9,39 @@
     color: var(--dark-blue);
 
     &__new{
-        @include mixins.start-button;
+        @include mixins.default-grid;
+        cursor: pointer;
+        border: none;
+        outline:none;
         place-self: center center;
-        margin: 2rem 0 3.95rem 0;
-        transition: all 250ms ease-in-out;
+        width: 10rem;
+        padding: 0.75rem 0;
+        font-size: 1.25rem;
+        border-radius: 999rem;
+        background-color: var(--dark-blue);
+        color: var(--baby-blue);
+        margin: 2rem 0 3.5rem;
 
         &:hover{
             background-color: var(--baby-blue);
             color: var(--dark-blue);
         }
     }
+    
+    &__new-icon{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        margin-right: 4rem;
+        place-self: center center;
+    }
+
+    &__new-text{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        margin-left: 2rem;
+        place-self: center center;
+    }
+
 
     &__heading{
         text-align: center;

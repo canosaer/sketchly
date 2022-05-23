@@ -10,17 +10,17 @@ export default function CurrentGames() {
             <main className="current-games">
                 <Header />
                 <h1 className="current-games__heading current-games__heading_start">Start New Game</h1>
-                <Link className="current-games__new" to="/draw"><FontAwesomeIcon className="title-screen__icon" icon={"play"} /> Start</Link>
+                <Link className="current-games__new" to="/new"><FontAwesomeIcon className="current-games__new-icon" icon={"play"} /><span className="current-games__new-text">Start</span></Link>
                 <h1 className="current-games__heading current-games__heading_join">Join Current Game</h1>
                 <div className="current-games__game-display">
-                    <Link to="/guess" className="game game_active">
+                    <Link to="/draw" className="game game_active">
                         <h2 className="game__name">Brave Traveler</h2>
                         <p className="game__turn">Turn 3</p>
                         <p className="game__updated">Last Turn: a few minutes ago</p>
                         <p className="game__contributors">Contributors: Mr. Robot, Whiterose</p>
                     </Link>
 
-                    <Link to="/guess" className="game game_inactive">
+                    <Link to="/" className="game game_inactive">
                         <h2 className="game__name">Befuddled Housekeeper</h2>
                         <p className="game__turn">Turn 12</p>
                         <p className="game__updated">Last Turn: yesterday</p>

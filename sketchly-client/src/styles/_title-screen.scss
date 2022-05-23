@@ -9,23 +9,42 @@
     
 
   &__text{
-      color: var(--dark-blue);
-      grid-column: 1/2;
-      grid-row: 2/3;
-      place-self: center center;
-      font-size: 2.05rem;
-      text-align: center;
-      margin: 7.1%;
-  }
-
-  &__link{
-    @include mixins.start-button;
+    color: var(--dark-blue);
     grid-column: 1/2;
-    place-self: end center;
-    margin-bottom: 2.35rem;
+    grid-row: 2/3;
+    place-self: center center;
+    font-size: 2.05rem;
+    text-align: center;
+    margin: 7.1%;
   }
 
-  &__icon{
-    margin-right: 0.75rem;
+  &__button{
+    @include mixins.default-grid;
+    cursor: pointer;
+    border: none;
+    outline:none;
+    place-self: center center;
+    width: 10rem;
+    padding: 0.75rem 0;
+    font-size: 1.25rem;
+    border-radius: 999rem;
+    background-color: var(--dark-blue);
+    color: var(--baby-blue);
+    margin-bottom: 5rem;
   }
+
+  &__button-icon{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin-right: 4rem;
+    place-self: center center;
+  }
+
+  &__button-text{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    margin-left: 2rem;
+    place-self: center center;
+  }
+
 }

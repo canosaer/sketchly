@@ -65,6 +65,8 @@
 	transition: all 250ms ease-in-out;
 
 	&_open{
+		height: unset;
+		width: unset;
 		border: 2px var(--beige) solid;
 		color: var(--beige);
 		font-size: 1rem;
@@ -192,14 +194,14 @@
 		font-family: 'India Rose', cursive;
 		font-size: 1.6rem;
 
-		@include mixins.medium-screen{
-			// font-size: var(--menu-font-size);
-		}
+		// @include mixins.medium-screen{
+		// 	font-size: var(--menu-font-size);
+		// }
 		
 
-		&:hover{
-			// color: var(--dark-color);
-		}
+		// &:hover{
+		// 	color: var(--dark-color);
+		// }
 
 		&:hover .menu__bar{
 			transform-origin: 0% 50%;

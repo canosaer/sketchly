@@ -14,6 +14,7 @@
     &__bottom-row{
         @include mixins.default-grid;
         grid-template-columns: 1fr 0.55fr;
+        margin-bottom: 5rem;
     }
 
     &__submit{

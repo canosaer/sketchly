@@ -1,11 +1,20 @@
 @use 'variables';
 @use 'mixins';
 
-.guess{
+.new-game{
     background: linear-gradient(var(--spearmint), var(--baby-blue));
     grid-auto-rows: max-content;
     min-height: 100vh;
     font-family: var(--heading-font);
+    color: var(--dark-blue);
+
+    &__heading{
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 2rem;
+
+    }
 
     &__input{
         margin: 1.5rem;
