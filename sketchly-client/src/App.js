@@ -11,6 +11,7 @@ import CurrentGames from './views/CurrentGames'
 import NewGame from './views/NewGame'
 import Draw from './views/Draw'
 import Guess from './views/Guess'
+import Archive from './views/Archive'
 
 import React, {useEffect} from 'react';
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/new" element={<NewGame />} />
           <Route path="/draw" element={<Draw />} />
           <Route path="/guess" element={<Guess />} />
+          <Route path="/archive" element={<Archive />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -2,14 +2,11 @@
 @use 'mixins';
 
 .title-screen{
-    background: linear-gradient(var(--spearmint), var(--baby-blue));
+    @include mixins.page-formatting;
     grid-template-rows: max-content auto max-content;
-    min-height: 100vh;
-    font-family: var(--heading-font);
     
 
   &__text{
-    color: var(--dark-blue);
     grid-column: 1/2;
     grid-row: 2/3;
     place-self: center center;
@@ -20,31 +17,16 @@
 
   &__button{
     @include mixins.default-grid;
-    cursor: pointer;
-    border: none;
-    outline:none;
-    place-self: center center;
-    width: 10rem;
-    padding: 0.75rem 0;
-    font-size: 1.25rem;
-    border-radius: 999rem;
-    background-color: var(--dark-blue);
-    color: var(--baby-blue);
+    @include mixins.interface-button;
     margin-bottom: 5rem;
   }
 
   &__button-icon{
-    grid-column: 1/2;
-    grid-row: 1/2;
-    margin-right: 4rem;
-    place-self: center center;
+    @include mixins.button-icon;
   }
 
   &__button-text{
-    grid-column: 1/2;
-    grid-row: 1/2;
-    margin-left: 2rem;
-    place-self: center center;
+    @include mixins.button-text;
   }
 
 }

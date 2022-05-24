@@ -2,24 +2,12 @@
 @use 'mixins';
 
 .current-games{
-    background: linear-gradient(var(--spearmint), var(--baby-blue));
+    @include mixins.page-formatting;
     grid-auto-rows: max-content;
-    min-height: 100vh;
-    font-family: var(--heading-font);
-    color: var(--dark-blue);
 
     &__new{
         @include mixins.default-grid;
-        cursor: pointer;
-        border: none;
-        outline:none;
-        place-self: center center;
-        width: 10rem;
-        padding: 0.75rem 0;
-        font-size: 1.25rem;
-        border-radius: 999rem;
-        background-color: var(--dark-blue);
-        color: var(--baby-blue);
+        @include mixins.interface-button;
         margin: 2rem 0 3.5rem;
 
         // &:hover{
@@ -29,17 +17,11 @@
     }
     
     &__new-icon{
-        grid-column: 1/2;
-        grid-row: 1/2;
-        margin-right: 4rem;
-        place-self: center center;
+        @include mixins.button-icon;
     }
 
     &__new-text{
-        grid-column: 1/2;
-        grid-row: 1/2;
-        margin-left: 2rem;
-        place-self: center center;
+        @include mixins.button-text;
     }
 
 
@@ -55,12 +37,8 @@
 
     &__game-display{
 		@include mixins.default-grid;
-		padding: 2rem 3%;
-		grid-column-gap: 3%;
-		grid-row-gap: 8rem;
-		justify-content: center;
-		grid-template-columns: repeat(auto-fit, minmax(21.35rem, 0.29fr));
-        margin-bottom: 8rem;
+        @include mixins.game-display;
+        grid-row-gap: 6.75rem;
 
 		// @include mixins.medium-screen{
 		// 	grid-column: 2/3;
@@ -69,16 +47,10 @@
 
     .game{
         @include mixins.default-grid;
-        grid-auto-rows: max-content;
-        position: relative;
-        background-color: var(--dark-blue);
-        color: var(--baby-blue);
-        cursor: pointer;
+        @include mixins.game-card;
         height: 10.5rem;
-        text-align: center;
-        border-radius: 0.7rem;
     
-        transition: all 250ms ease-in-out;
+        // transition: all 250ms ease-in-out;
     
         // &:hover{
         //     background-color: var(--baby-blue);
@@ -86,10 +58,7 @@
         // }
     
         &_inactive{
-            opacity: 0.6;
-            cursor: default;
-            pointer-events: none;
-    
+            @include mixins.inactive-game;
         }
     
         &__name{
