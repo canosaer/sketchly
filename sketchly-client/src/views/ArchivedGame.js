@@ -4,25 +4,35 @@ import SignatureCanvas from 'react-signature-canvas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWindowDimensions } from '../utilities'
 import { Context } from '../store/store'
-import GameHeader from '../components/GameHeader'
+import Header from '../components/Header'
 
 
-export default function Guess(props) {
+export default function ArchivedGame() {
 
     const [state, dispatch] = useContext(Context)
+    const [games, setGames] = useState([])
 
-    const canvas = ['','','','','','']
-    const guessInput = useRef()
+    const gameImages = ['','','','','','']
+    gameImages.fill(useRef())
+
+    const words = ['example1', 'example2', 'example3', 'example4', 'example5', 'example6']
 
     useEffect(() => {
-        canvas.current.off()
+        let sampleGame = []
+        for(let i=0;i<6;i++){
+            sampleGame.push(words[i])
+            sampleGame.push(gameImages[i])
+        }
+        setGames(...games, sampleGame)
+        console.log(games)
     }, [])
 
     return(
         <>
             <main className="guess">
-                <GameHeader mode="guess" canvas={canvas[0]} guessInput={guessInput}/>
-                <SignatureCanvas 
+                <Header />
+                
+                {/* <SignatureCanvas
                     ref={canvas}
                     canvasProps={{
                         // width: useWindowDimensions().width, 
@@ -31,13 +41,8 @@ export default function Guess(props) {
                         className: 'guess__canvas'
                     }}
                     backgroundColor='rgb(255,255,255)'
-                />
-                <input className="guess__input" type="text" 
-                    ref={guessInput}
-                    value={guess}
-                    onChange={(e) => setGuess(e.target.value)}
-                />
-                <button className="guess__submit"><FontAwesomeIcon className="guess__submit-icon" icon={"check"} /><span className="guess__submit-text">Done!</span></button>
+                /> */}
+
             </main>
         </>
         
