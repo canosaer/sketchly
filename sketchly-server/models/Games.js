@@ -8,7 +8,10 @@ const SketchlySchema = new mongoose.Schema({
     accessedBy: [{ 
         type: String,
     }],
-    contributors: [{ 
+    contributorNames: [{ 
+        type: String,
+    }],
+    contributorIDs: [{ 
         type: String,
     }],
     turn: {
