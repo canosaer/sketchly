@@ -12,7 +12,7 @@ import NewGame from './views/NewGame'
 import Draw from './views/Draw'
 import Guess from './views/Guess'
 import Archive from './views/Archive'
-import ArchivedGame from './views/ArchivedGame'
+import GameHistory from './views/GameHistory'
 
 import React, {useEffect} from 'react';
 
@@ -39,7 +39,7 @@ function App() {
           <Route path="/draw" element={<Draw />} />
           <Route path="/guess" element={<Guess />} />
           <Route path="/archive" element={<Archive />} />
-          <Route path="/archived-game" element={<ArchivedGame />} />
+          <Route path="/game-history" element={<GameHistory />} />
         </Routes>
       </BrowserRouter>
     </>

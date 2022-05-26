@@ -15,10 +15,6 @@ export default function Guess(props) {
     const canvas = useRef()
     const guessInput = useRef()
 
-    useEffect(() => {
-        canvas.current.off()
-    }, [])
-
     return(
         <>
             <main className="guess">

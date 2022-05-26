@@ -1,0 +1,26 @@
+@use 'variables';
+@use 'mixins';
+
+.history{
+    @include mixins.page-formatting;
+    grid-auto-rows: max-content;
+    padding-bottom: 5rem;
+
+    .header{
+        margin-bottom: 2rem;
+    }
+
+    &__word{
+        text-align: center;
+        place-self: center center;
+        font-size: 1.75rem;
+        margin: 0 2rem 2rem;
+    }
+
+    &__canvas{
+        pointer-events: none;
+        margin-bottom: 2rem;
+    }
+
+
+}

@@ -23,4 +23,8 @@
     &__submit-text{
         @include mixins.button-text;
     }
+
+    &__canvas{
+        pointer-events: none;
+    }
 }
