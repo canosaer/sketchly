@@ -5,6 +5,11 @@ const reducer = (state, action) => {
                 ...state,
                 prompt: action.payload
             }
+        case 'UPDATE_DEST':
+            return {
+                ...state,
+                dest: action.payload
+            }
         default:
             return state
     }

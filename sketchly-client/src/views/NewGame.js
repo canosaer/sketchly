@@ -1,38 +1,67 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDebounce } from '../utilities'
+import { Context } from '../store/store'
+import axios, { Axios } from 'axios';
+
 
 export default function NewGame() {
-
+    const [ state, dispatch ] = useContext(Context)
     const [ name, setName ] = useState('')
     const [ passwordOn, setPasswordOn ] = useState(false)
     const [ password, setPassword ] = useState('')
-    const [ games, setGames ] = useState([])
     const [ error, setError ] = useState('none')
 
     const debouncedGameName = useDebounce(name, 500)
 
-    // const url = `${baseURL}${searchPath}?api_key=${apiKey}${extraParams}`;
+    const url = `http://localhost:1337/games`
 
-    // const getGames = async (url, query) => {
-    //     try {
-    //       const response = await axios.get(`${url}&query=${query}`)
-    //       console.log(response)
-    //       setGames(response.data.results)
-    //     } catch (err) {
-    //       console.log(err.message, err.code)
-    //     }
-    // }
+    const createGame = async () => {
 
-    // useEffect(() => {
-    //     if(debouncedGameName){
-    //       getGames(url, debouncedGameName)
-    //     } else{
-    //       setGames([])
-    //     }
-    // }, [debouncedGameName, url])
+        validateName(name)
+        
+        if(error === 'none'){
+            let game = {
+                name: name,
+            }
+            if (password) game.password = password
+    
+            axios.post(url, game)
+                .then(()=>{
+                    console.log(`${name} created`)
+                })
+                .catch(()=>{
+                    console.log(`failed to create ${name}`)
+                })
+    
+            dispatch ({type: 'UPDATE_DEST', payload: 'draw'})
+        }
+    }
+
+    const validateName = async (nameInput) => {
+        if(nameInput){
+            setError('none')
+            try {
+                const response = await axios.get(`${url}/${nameInput}`)
+                console.log(response)
+                if(response.data[0]){
+                    setError('Game name already taken.')
+                }
+                else setError('none')
+            } catch (err) {
+              console.log(err.message, err.code)
+            }
+        }
+        else setError('Required.')
+    }
+
+    useEffect(() => {
+        if(debouncedGameName){
+            validateName(debouncedGameName)
+        }
+    }, [debouncedGameName])
     
 
     return(
@@ -56,7 +85,7 @@ export default function NewGame() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
-                <Link to="/draw" className="new-game__submit"><FontAwesomeIcon className="new-game__icon" icon={"play"} /><span className="new-game__submit-text">Begin</span></Link>
+                <Link onClick={createGame} to={ name && error === 'none' ? "/user" : "/new"} className="new-game__submit"><FontAwesomeIcon className="new-game__icon" icon={"play"} /><span className="new-game__submit-text">Begin</span></Link>
                 
             </main>
         </>

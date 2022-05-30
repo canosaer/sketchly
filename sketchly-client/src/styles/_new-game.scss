@@ -2,16 +2,10 @@
 @use 'mixins';
 
 .new-game{
-    background: linear-gradient(var(--spearmint), var(--baby-blue));
-    grid-auto-rows: max-content;
-    min-height: 100vh;
-    font-family: var(--heading-font);
-    color: var(--dark-blue);
+    @include mixins.name-input-page;
 
     &__heading{
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: bold;
+        @include mixins.name-input-heading;
 
         &_name{
             margin-top: 2rem;
@@ -35,9 +29,7 @@
     }
 
     &__error{
-        text-align: center;
-        place-self: center center;
-        margin-bottom: 0.5rem;
+        @include mixins.name-input-error;
     }
 
     &__submit{

@@ -9,6 +9,7 @@ import {
 import Title from './views/Title'
 import CurrentGames from './views/CurrentGames'
 import NewGame from './views/NewGame'
+import User from './views/User'
 import Draw from './views/Draw'
 import Guess from './views/Guess'
 import Archive from './views/Archive'
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<Title />} />
           <Route path="/current-games" element={<CurrentGames />} />
           <Route path="/new" element={<NewGame />} />
+          <Route path="/user" element={<User />} />
           <Route path="/draw" element={<Draw />} />
           <Route path="/guess" element={<Guess />} />
           <Route path="/archive" element={<Archive />} />

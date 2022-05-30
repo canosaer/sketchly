@@ -114,3 +114,24 @@
   cursor: default;
   pointer-events: none;
 }
+
+@mixin name-input-page{
+  background: linear-gradient(var(--spearmint), var(--baby-blue));
+  grid-auto-rows: max-content;
+  min-height: 100vh;
+  font-family: var(--heading-font);
+  color: var(--dark-blue);
+}
+
+@mixin name-input-heading{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@mixin name-input-error{
+  text-align: center;
+  place-self: center center;
+  margin-bottom: 0.5rem;
+}
+

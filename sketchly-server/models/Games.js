@@ -5,6 +5,10 @@ const SketchlySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    nameLower: {
+        type: String,
+        required: true,
+    },
     accessedBy: [{ 
         type: String,
     }],
@@ -28,15 +32,11 @@ const SketchlySchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    onTurn: {
-        type: String,
-    },
     password: {
         type: String,
     },
     flagged: {
         type: Boolean,
-        required: true
     },
 }, {timestamps: true})
 
