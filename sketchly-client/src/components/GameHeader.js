@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Timer from '../components/TImer'
+import Timer from './Timer'
 import { Context } from '../store/store'
 
 export default function GameHeader(props) {

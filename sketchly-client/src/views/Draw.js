@@ -1,15 +1,20 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GameHeader from '../components/GameHeader'
 import { useWindowDimensions } from '../utilities'
+import { Context } from '../store/store'
 
 export default function Draw() {
-
+    const [state, dispatch] = useContext(Context)
     const [penColor, setPenColor] = useState('black')
     const [eraseMode, setEraseMode] = useState(false)
 
     const ref = useRef()
+
+    useEffect(() => {
+        console.log(state)
+    }, [])
 
     return(
         <>

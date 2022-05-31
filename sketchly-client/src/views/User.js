@@ -2,9 +2,8 @@ import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { Context } from '../store/store'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-export default function User(props) {
+export default function User() {
     const [ state, dispatch ] = useContext(Context)
     const [ userName, setUserName ] = useState('')
     const [ touched, setTouched ] = useState(false)
@@ -19,7 +18,7 @@ export default function User(props) {
                     onChange={(e) => setUserName(e.target.value)}
                 />
                 <p onFocus={()=>!touched ? setTouched(true) : null} className={ !userName && touched ? "user__error" : "user__error transparent"}>Required</p>
-                <Link to={userName ? `/${state.dest}` : '/user' } className="user__submit">Ready!</Link>
+                <Link onClick={ userName ? ()=>{ dispatch ({type: 'UPDATE_USER', payload: userName}) } : null } to={ userName ? `/${state.dest}` : '/user' } className="user__submit">Ready!</Link>
             </main>
         </>
         

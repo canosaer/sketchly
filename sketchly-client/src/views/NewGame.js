@@ -4,7 +4,7 @@ import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useDebounce } from '../utilities'
 import { Context } from '../store/store'
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 
 
 export default function NewGame() {
@@ -16,7 +16,7 @@ export default function NewGame() {
 
     const debouncedGameName = useDebounce(name, 500)
 
-    const url = `http://localhost:1337/games`
+    const url = 'http://localhost:1337/games'
 
     const createGame = async () => {
 
@@ -30,13 +30,12 @@ export default function NewGame() {
     
             axios.post(url, game)
                 .then(()=>{
-                    console.log(`${name} created`)
+                    dispatch ({type: 'LOAD_GAME', payload: name})
+                    dispatch ({type: 'UPDATE_DEST', payload: 'draw'})
                 })
                 .catch(()=>{
                     console.log(`failed to create ${name}`)
                 })
-    
-            dispatch ({type: 'UPDATE_DEST', payload: 'draw'})
         }
     }
 
@@ -45,7 +44,6 @@ export default function NewGame() {
             setError('none')
             try {
                 const response = await axios.get(`${url}/${nameInput}`)
-                console.log(response)
                 if(response.data[0]){
                     setError('Game name already taken.')
                 }
