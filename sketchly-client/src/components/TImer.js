@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Timer({ expiryTimestamp }) {
 
-    const onExpireFunction = () => {
-        console.log('onExpire called')
-    }
+    // const onExpireFunction = () => {
+    //     console.log('onExpire called')
+    // }
 
     const {
         seconds,
