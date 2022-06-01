@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const { randomUUID } = require('crypto')
+
 require('dotenv').config()
 
 const mongoose = require('mongoose')
@@ -17,6 +19,22 @@ app.use(express.json())
 app.use(cors())
 
 app.post('/games', async (req, res) => {
+
+  let game = new GameModel({
+    name: req.body.name,
+    nameLower: req.body.name.toLowerCase(),
+    turn: 1,
+    active: false,
+  })
+  if (req.body.password) game.password = req.body.password
+
+  await game.save()
+
+  res.send(`${game.name} created`)
+  
+})
+
+app.patch('/games/:name', async (req, res) => {
 
   let game = new GameModel({
     name: req.body.name,

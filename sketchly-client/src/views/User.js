@@ -1,34 +1,33 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { Context } from '../store/store'
 import axios from 'axios';
+import { useLocalStorage } from '../utilities'
 
 export default function User() {
     const [ state, dispatch ] = useContext(Context)
-    const [ userName, setUserName ] = useState('')
+    const [ userName, setUserName ] = useLocalStorage('Rtoz88nwmfpSketchlyUser', '')
     const [ touched, setTouched ] = useState(false)
-    const [ userID, setUserID ] = useState('')
 
     const url = 'http://localhost:1337/games'
-    const uniqueID = useId()
-    const sketchlyKey = 'Rtoz88nwmfp'
 
-    // const enterGame = async () => {
-    //     dispatch ({type: 'UPDATE_USER', payload: userName})
 
-    //     query = {
-    //         gameName: state.game
-    //     }
+    const enterGame = async () => {
+        // dispatch ({type: 'UPDATE_USER', payload: userName})
 
-    //     axios.post(url, state.game)
-    //         .then(()=>{
+        // query = {
+        //     gameName: state.game
+        // }
+
+        // axios.post(url, state.game)
+        //     .then(()=>{
                 
-    //         })
-    //         .catch(()=>{
+        //     })
+        //     .catch(()=>{
 
-    //         })
-    // }
+        //     })
+    }
 
     return(
         <>

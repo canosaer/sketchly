@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '../store/store'
+import { useIdentifier } from '../utilities'
 
 export default function CurrentGames() {
     const [state, dispatch] = useContext(Context)
+
+    const identity = useIdentifier()
 
     const setDestination = () => {
         dispatch ({type: 'UPDATE_DEST', payload: 'draw'})

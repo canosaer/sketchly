@@ -1,6 +1,5 @@
 const data = {
     dest: '',
-    user: '',
     game: '',
     prompt: '',
 }

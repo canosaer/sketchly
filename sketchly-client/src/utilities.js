@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from 'react'
+import passfather from 'passfather'
 
 const useDebounce = function(value, delay) {
     // State and setters for debounced value
@@ -46,6 +46,29 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
+const useLocalStorage = (storageKey, fallbackState) => {
+  const [value, setValue] = useState(
+    JSON.parse(localStorage.getItem(storageKey)) ?? fallbackState
+  )
+
+  useEffect(() => {
+    localStorage.setItem(storageKey, JSON.stringify(value))
+  }, [value, storageKey])
+
+  return [value, setValue]
+}
+
+const useIdentifier = () => {
+  const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
+  const uniqueID = passfather({
+    length: 20,
+  })
+
+  useEffect(() => {
+    if(!userID) setUserID(uniqueID)
+  }, [userID])
+}
+
 export {
-    useDebounce, useWindowDimensions,
+    useDebounce, useWindowDimensions, useLocalStorage, useIdentifier
 }
