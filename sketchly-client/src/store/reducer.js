@@ -15,6 +15,11 @@ const reducer = (state, action) => {
                 ...state,
                 prompt: action.payload
             }
+        case 'TRIGGER_SUBMIT':
+            return {
+                ...state,
+                submit: action.payload
+            }
         default:
             return state
     }

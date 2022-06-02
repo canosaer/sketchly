@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext, useEffect } from 'react'
 import SignatureCanvas from 'react-signature-canvas'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GameHeader from '../components/GameHeader'
+import SubmitButton from '../components/SubmitButton'
 import { useWindowDimensions } from '../utilities'
 import { Context } from '../store/store'
 import axios from 'axios'
@@ -60,7 +61,7 @@ export default function Draw() {
                         <figure className="palette__color palette__color_brown" onClick={() => {setEraseMode(false); setPenColor('brown')}}></figure>
                         <figure className="palette__color palette__color_erase" onClick={() => setEraseMode(!eraseMode)}><FontAwesomeIcon className="palette__icon" icon={"eraser"} /></figure>
                     </div>
-                    <button className="draw__submit"><FontAwesomeIcon className="draw__submit-icon" icon={"check"} /></button>
+                    <SubmitButton content="drawing" />
                 </section>
             </main>
         </>
