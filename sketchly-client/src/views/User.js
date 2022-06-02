@@ -7,9 +7,9 @@ import { useLocalStorage } from '../utilities'
 
 export default function User() {
     const [ state, dispatch ] = useContext(Context)
-    const [ userName, setUserName ] = useLocalStorage('Rtoz88nwmfpSketchlyUser', '')
+    const [ userName, setUserName ] = useLocalStorage('userName', '')
     const [ touched, setTouched ] = useState(false)
-    const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
+    const [ userID, setUserID ] = useLocalStorage('userID', '')
 
     const url = 'http://localhost:1337'
 

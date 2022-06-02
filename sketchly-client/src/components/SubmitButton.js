@@ -9,8 +9,8 @@ export default function GameHeader(props) {
 
     const [ state, dispatch ] = useContext(Context)
     const [ clicked, setClicked ] = useState(false)
-    const [ userName, setUserName ] = useLocalStorage('Rtoz88nwmfpSketchlyUser', '')
-    const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
+    const [ userName, setUserName ] = useLocalStorage('userName', '')
+    const [ userID, setUserID ] = useLocalStorage('userID', '')
     const [ submitted, setSubmitted ] = useState(false)
 
     const dimmerStyles = clicked ? 'dimmer dimmer_open' : 'dimmer'

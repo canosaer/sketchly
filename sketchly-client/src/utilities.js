@@ -62,7 +62,7 @@ const useLocalStorage = (storageKey, fallbackState) => {
 }
 
 const useIdentifier = () => {
-  const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
+  const [ userID, setUserID ] = useLocalStorage('userID', '')
   const uniqueID = passfather({
     length: 20,
   })

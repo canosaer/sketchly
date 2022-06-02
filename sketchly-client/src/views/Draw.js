@@ -11,26 +11,49 @@ export default function Draw() {
     const [state, dispatch] = useContext(Context)
     const [penColor, setPenColor] = useState('black')
     const [eraseMode, setEraseMode] = useState(false)
-    const [prompt, setPrompt] = useState(false)
-    const [image, setImage] = useState([])
+    const [prompt, setPrompt] = useState('')
 
     const ref = useRef()
 
     const url = 'http://localhost:1337'
 
+
+    const updateState = async () => {
+        let gameData = {}
+
+        try {
+            gameData = await axios.get(`${url}/games/${state.game.name}`)
+        } catch (err) {
+            console.log(err.message, err.code)
+        }
+
+        dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
+    }
+
+    const updatePrompt = async (phrase) => {
+        axios.patch(`${url}/phrases/${state.game.name}`, phrase)
+        .then(()=>{
+            updateState()
+        })
+        .catch((err)=>{
+            console.log(err.message, err.code)
+        })
+    }
+
     const retrievePrompt = async () => {
         try {
             const phrase = await axios.get(`${url}/phrases`)
-            setPrompt(true)
-            dispatch ({type: 'UPDATE_PROMPT', payload: phrase.data.content})
-            
+            setPrompt(phrase.data.content)
+            updatePrompt(phrase)
+            // dispatch ({type: 'UPDATE_PROMPT', payload: phrase.data.content})
         } catch (err) {
             console.log(err.message, err.code)
         }
     }
 
     useEffect(() => {
-        if(!prompt) retrievePrompt()
+        if(state.game.prompt) setPrompt(state.game.prompt)
+        else retrievePrompt()
     }, [prompt])
 
     return(

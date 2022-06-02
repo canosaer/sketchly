@@ -47,6 +47,21 @@ app.post('/phrases', async (req, res) => {
   
 })
 
+app.patch('/phrases/:name', async (req, res) => {
+
+  GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    if (err) {
+      res.send(err)
+    } else {
+      const game = result[0]
+      console.log(req.body.data.content)
+      game.phrases.push(req.body.data.content)
+      game.save()
+    }
+  })
+
+})
+
 app.patch('/games/:name', async (req, res) => {
 
   if(req.body.action === 'UPDATE_ACCESS'){
