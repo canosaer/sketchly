@@ -16,7 +16,19 @@ export default function NewGame() {
 
     const debouncedGameName = useDebounce(name, 500)
 
-    const url = 'http://localhost:1337/games'
+    const url = 'http://localhost:1337'
+
+    const updateState = async () => {
+        let gameData = {}
+
+        try {
+            gameData = await axios.get(`${url}/games/${name}`)
+        } catch (err) {
+            console.log(err.message, err.code)
+        }
+
+        dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
+    }
 
     const createGame = async () => {
 
@@ -28,10 +40,9 @@ export default function NewGame() {
             }
             if (password) game.password = password
     
-            axios.post(url, game)
+            axios.post(`${url}/games`, game)
                 .then(()=>{
-                    dispatch ({type: 'LOAD_GAME', payload: name})
-                    dispatch ({type: 'UPDATE_DEST', payload: 'draw'})
+                    updateState()
                 })
                 .catch(()=>{
                     console.log(`failed to create ${name}`)
@@ -43,7 +54,7 @@ export default function NewGame() {
         if(nameInput){
             setError('none')
             try {
-                const response = await axios.get(`${url}/${nameInput}`)
+                const response = await axios.get(`${url}/games/${nameInput}`)
                 if(response.data[0]){
                     setError('Game name already taken.')
                 }

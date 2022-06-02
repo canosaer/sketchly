@@ -11,7 +11,7 @@ export default function User() {
     const [ touched, setTouched ] = useState(false)
     const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
 
-    const url = 'http://localhost:1337/games'
+    const url = 'http://localhost:1337'
 
 
     const enterGame = async () => {
@@ -21,7 +21,7 @@ export default function User() {
             action: 'UPDATE_ACCESS'
         }
 
-        axios.patch(`${url}/${state.game}`, payload)
+        axios.patch(`${url}/games/${state.game.name}`, payload)
             .then(()=>{
                 console.log('user info inserted')
             })
@@ -40,7 +40,7 @@ export default function User() {
                     onChange={(e) => setUserName(e.target.value)}
                 />
                 <p onFocus={()=>!touched ? setTouched(true) : null} className={ !userName && touched ? "user__error" : "user__error transparent"}>Required</p>
-                <Link onClick={ userName ? enterGame : null } to={ userName ? `/${state.dest}` : '/user' } className="user__submit">Ready!</Link>
+                <Link onClick={ userName ? enterGame : null } to={ userName ? state.game.turn % 2 === 0 ? '/guess' : '/draw' : '/user' } className="user__submit">Ready!</Link>
             </main>
         </>
         

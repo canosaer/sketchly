@@ -49,17 +49,39 @@ app.post('/phrases', async (req, res) => {
 
 app.patch('/games/:name', async (req, res) => {
 
-  GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
-    if (err) {
-      res.send(err)
-    } else {
-      result[0].accessedBy.push(req.body.userID)
-      result[0].save()
-    }
-  })
+  if(req.body.action === 'UPDATE_ACCESS'){
+    GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result[0]
+        game.accessedBy.push(req.body.userID)
+        game.save()
+      }
+    })
+  
+    GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
+    res.send('access updated')
+  }
+  else if(req.body.action === 'ADD_DRAW_TURN'){
+    GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result[0]
+        game.images.push(req.body.image)
+        game.contributorNames.push(req.body.userName)
+        game.turn = game.turn + 1
+        game.save()
+      }
+    })
+  
+    GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
+    res.send('access updated')
+    
+  }
 
-  GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
-  res.send('access updated')
+
 })
 
 app.get('/games', (req, res) => {

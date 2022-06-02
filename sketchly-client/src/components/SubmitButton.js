@@ -2,14 +2,45 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '../store/store'
+import axios from 'axios'
+import { useLocalStorage } from '../utilities'
 
 export default function GameHeader(props) {
 
-    const [state, dispatch] = useContext(Context)
-    const [clicked, setClicked ] = useState(false)
+    const [ state, dispatch ] = useContext(Context)
+    const [ clicked, setClicked ] = useState(false)
+    const [ userName, setUserName ] = useLocalStorage('Rtoz88nwmfpSketchlyUser', '')
+    const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
+    const [ submitted, setSubmitted ] = useState(false)
 
     const dimmerStyles = clicked ? 'dimmer dimmer_open' : 'dimmer'
     const transitionStyles = clicked ? 'transition transition_open' : 'transition'
+
+    const url = 'http://localhost:1337'
+
+    const saveGame = () => {
+        if(!submitted){
+            if(props.mode === 'draw'){
+                const image = JSON.stringify(props.payload.current.toData())
+    
+                const payload = {
+                    action: 'ADD_DRAW_TURN',
+                    image: image,
+                    userName: userName,
+                }
+        
+                axios.patch(`${url}/games/${state.game.name}`, payload)
+                    .then(()=>{
+                        setSubmitted(true)
+                        console.log('turn sent')
+                    })
+                    .catch((err)=>{
+                        console.log(err.message, err.code)
+                    })
+            }
+        }
+
+    }
 
     const lockScroll = () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -26,11 +57,11 @@ export default function GameHeader(props) {
     }
 
     useEffect(() => {
-
         if(clicked || state.submit){
             if(!clicked) setClicked(true)
             window.scrollTo(0,0)
             lockScroll()
+            saveGame()
         }
         else{
             unlockScroll()
@@ -42,7 +73,7 @@ export default function GameHeader(props) {
         <>
             <div className={transitionStyles}>
                 <div className="transition__content">
-                    <h2 className="transition__heading">{props.content === 'drawing' ? 'Drawing submitted!' : 'Guess submitted!'}</h2>
+                    <h2 className="transition__heading">{props.mode === 'draw' ? 'Drawing submitted!' : 'Guess submitted!'}</h2>
                     <Link to="/current-games" className="transition__link">Continue</Link>
                 </div>
             </div>

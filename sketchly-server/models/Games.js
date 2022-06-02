@@ -15,9 +15,6 @@ const SketchlySchema = new mongoose.Schema({
     contributorNames: [{ 
         type: String,
     }],
-    contributorIDs: [{ 
-        type: String,
-    }],
     turn: {
         type: Number,
         required: true,

@@ -1,6 +1,6 @@
 const data = {
     dest: '',
-    game: '',
+    game: {},
     prompt: '',
     submit: false,
 }
