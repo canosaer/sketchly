@@ -10,7 +10,7 @@ export default function GameHeader(props) {
     const [quitMenuOpen, setQuitMenuOpen ] = useState(false)
 
     const time = new Date()
-    time.setSeconds(time.getSeconds() + 80)
+    time.setSeconds(time.getSeconds() + 99)
 
     const dimmerStyles = quitMenuOpen ? 'dimmer dimmer_open' : 'dimmer'
     const quitStyles = quitMenuOpen ? 'quit quit_open' : 'quit'

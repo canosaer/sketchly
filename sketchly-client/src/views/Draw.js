@@ -4,17 +4,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import GameHeader from '../components/GameHeader'
 import { useWindowDimensions } from '../utilities'
 import { Context } from '../store/store'
+import axios from 'axios'
 
 export default function Draw() {
     const [state, dispatch] = useContext(Context)
     const [penColor, setPenColor] = useState('black')
     const [eraseMode, setEraseMode] = useState(false)
+    const [prompt, setPrompt] = useState(false)
 
     const ref = useRef()
 
+    const url = 'http://localhost:1337'
+
+    const retrievePrompt = async () => {
+        try {
+            const phrase = await axios.get(`${url}/phrases`)
+            setPrompt(true)
+            dispatch ({type: 'UPDATE_PROMPT', payload: phrase.data.content})
+            
+        } catch (err) {
+            console.log(err.message, err.code)
+        }
+    }
+
     useEffect(() => {
-        console.log(state)
-    }, [])
+        if(!prompt) retrievePrompt()
+    }, [prompt])
 
     return(
         <>

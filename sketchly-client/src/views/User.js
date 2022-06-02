@@ -9,24 +9,25 @@ export default function User() {
     const [ state, dispatch ] = useContext(Context)
     const [ userName, setUserName ] = useLocalStorage('Rtoz88nwmfpSketchlyUser', '')
     const [ touched, setTouched ] = useState(false)
+    const [ userID, setUserID ] = useLocalStorage('Rtoz88nwmfpSketchlyID', '')
 
     const url = 'http://localhost:1337/games'
 
 
     const enterGame = async () => {
-        // dispatch ({type: 'UPDATE_USER', payload: userName})
 
-        // query = {
-        //     gameName: state.game
-        // }
+        const payload = {
+            userID: userID,
+            action: 'UPDATE_ACCESS'
+        }
 
-        // axios.post(url, state.game)
-        //     .then(()=>{
-                
-        //     })
-        //     .catch(()=>{
-
-        //     })
+        axios.patch(`${url}/${state.game}`, payload)
+            .then(()=>{
+                console.log('user info inserted')
+            })
+            .catch((err)=>{
+                console.log(err.message, err.code)
+            })
     }
 
     return(

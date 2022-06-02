@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '../store/store'
 import { useIdentifier } from '../utilities'
+import axios from 'axios'
 
 export default function CurrentGames() {
     const [state, dispatch] = useContext(Context)
