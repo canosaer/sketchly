@@ -25,6 +25,7 @@ app.post('/games', async (req, res) => {
     nameLower: req.body.name.toLowerCase(),
     turn: 1,
     active: false,
+    lastUpdated: Date.now(),
   })
   if (req.body.password) game.password = req.body.password
 
@@ -47,30 +48,17 @@ app.post('/phrases', async (req, res) => {
   
 })
 
-app.patch('/phrases/:name', async (req, res) => {
-
-  GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
-    if (err) {
-      res.send(err)
-    } else {
-      const game = result[0]
-      console.log(req.body.data.content)
-      game.phrases.push(req.body.data.content)
-      game.save()
-    }
-  })
-
-})
 
 app.patch('/games/:name', async (req, res) => {
 
   if(req.body.action === 'UPDATE_ACCESS'){
-    GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result[0]
+        const game = result
         game.accessedBy.push(req.body.userID)
+        game.lastUpdated = Date.now()
         game.save()
       }
     })
@@ -79,25 +67,40 @@ app.patch('/games/:name', async (req, res) => {
     res.send('access updated')
   }
   else if(req.body.action === 'ADD_DRAW_TURN'){
-    GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result[0]
+        const game = result
         game.images.push(req.body.image)
         game.contributorNames.push(req.body.userName)
         game.turn = game.turn + 1
+        game.lastUpdated = Date.now()
+        game.lastTurn = game.lastUpdated
         game.save()
       }
     })
-  
-    GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
-    res.send('access updated')
-    
+  }
+  else if(req.body.action === 'ADD_PHRASE'){
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result
+        const timeDiff = Date.now() - game.lastUpdated
+        console.log(timeDiff)
+        if( timeDiff > 50 ){          
+          game.phrases.push(req.body.phrase)
+          game.lastUpdated = Date.now()
+          game.save()
+        }
+      }
+    })
   }
 
 
 })
+
 
 app.get('/games', (req, res) => {
   GameModel.find({}, (err, result) => {
@@ -109,8 +112,9 @@ app.get('/games', (req, res) => {
   })
 })
 
-app.get('/phrases', async (req, res) => {
-  PhraseModel.findOne({ available: true }, (err, result) => {
+
+app.get('/games/:name', (req, res) => {
+  GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
     if (err) {
       res.send(err)
     } else {
@@ -119,8 +123,8 @@ app.get('/phrases', async (req, res) => {
   })
 })
 
-app.get('/games/:name', (req, res) => {
-  GameModel.find({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+app.get('/phrases', async (req, res) => {
+  PhraseModel.findOne({ available: true }, (err, result) => {
     if (err) {
       res.send(err)
     } else {

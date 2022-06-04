@@ -27,7 +27,7 @@ export default function NewGame() {
             console.log(err.message, err.code)
         }
 
-        dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
+        dispatch ({type: 'LOAD_GAME', payload: gameData.data})
     }
 
     const createGame = async () => {
@@ -55,7 +55,7 @@ export default function NewGame() {
             setError('none')
             try {
                 const response = await axios.get(`${url}/games/${nameInput}`)
-                if(response.data[0]){
+                if(response.data){
                     setError('Game name already taken.')
                 }
                 else setError('none')

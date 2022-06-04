@@ -35,7 +35,13 @@ const SketchlySchema = new mongoose.Schema({
     flagged: {
         type: Boolean,
     },
-}, {timestamps: true})
+    lastUpdated: {
+        type: Number,
+    },
+    lastTurn: {
+        type: Number,
+    },
+})
 
 const GameModel = mongoose.model('games', SketchlySchema)
 

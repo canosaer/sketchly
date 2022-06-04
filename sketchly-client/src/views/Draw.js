@@ -17,44 +17,57 @@ export default function Draw() {
 
     const url = 'http://localhost:1337'
 
+    const updateState = async (gamePhrase) => {
+        const payload = {
+            action: 'ADD_PHRASE',
+            phrase: gamePhrase,
+        }
 
-    const updateState = async () => {
-        let gameData = {}
+        axios.patch(`${url}/games/${state.game.name}`, payload)
+            .then(()=>{
+                console.log('game phrase added')
+            })
+            .catch((err)=>{
+                console.log(err.message, err.code)
+            })
+    }
 
+    const getNewPrompt = async () => {
         try {
-            gameData = await axios.get(`${url}/games/${state.game.name}`)
+            const response = await axios.get(`${url}/phrases`)
+            setPrompt(response.data.content)
+            updateState(response.data.content)
         } catch (err) {
             console.log(err.message, err.code)
         }
 
-        dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
     }
 
-    const updatePrompt = async (phrase) => {
-        axios.patch(`${url}/phrases/${state.game.name}`, phrase)
-        .then(()=>{
-            updateState()
-        })
-        .catch((err)=>{
-            console.log(err.message, err.code)
-        })
-    }
 
-    const retrievePrompt = async () => {
+    const loadPrompt = async () => {
         try {
-            const phrase = await axios.get(`${url}/phrases`)
-            setPrompt(phrase.data.content)
-            updatePrompt(phrase)
-            // dispatch ({type: 'UPDATE_PROMPT', payload: phrase.data.content})
+            const response = await axios.get(`${url}/games/${state.game.name}`)
+            console.log(response)
+            if(response.data.prompt){
+                setPrompt(response.data.content)
+                updateState(response.data.content)
+            } 
+            else{
+                getNewPrompt()
+            }
         } catch (err) {
             console.log(err.message, err.code)
         }
+
     }
+
 
     useEffect(() => {
-        if(state.game.prompt) setPrompt(state.game.prompt)
-        else retrievePrompt()
+        if(!prompt){
+            loadPrompt()
+        }
     }, [prompt])
+
 
     return(
         <>
