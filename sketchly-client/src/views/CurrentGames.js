@@ -1,15 +1,21 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '../store/store'
 import { useIdentifier } from '../utilities'
 import axios from 'axios'
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 export default function CurrentGames() {
-    const [state, dispatch] = useContext(Context)
+    const [ state, dispatch ] = useContext(Context)
+    const [ games, setGames ] = useState([])
+    const [ init, setInit ] = useState(false)
 
     const identity = useIdentifier()
+
+    const url = 'http://localhost:1337'
 
     const loadGame = () => {
         // let gameData = {}
@@ -23,6 +29,23 @@ export default function CurrentGames() {
         // dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
     }
 
+    const retrieveGames = async () => {
+        try {
+          const response = await axios.get(`${url}/games`)
+          console.log(response)
+          setGames(response.data)
+        } catch (err) {
+          console.log(err.message, err.code)
+        }
+    }
+
+    useEffect(() => {
+        if(!init){
+            retrieveGames()
+            setInit(true)
+        }
+    }, [init, games])
+
     return(
         <>
             <main className="current-games">
@@ -31,29 +54,29 @@ export default function CurrentGames() {
                 <Link className="current-games__new" to="/new"><FontAwesomeIcon className="current-games__new-icon" icon={"play"} /><span className="current-games__new-text">Start</span></Link>
                 <h1 className="current-games__heading current-games__heading_join">Join Current Game</h1>
                 <div className="current-games__game-display">
-                    <Link onClick={ ()=> loadGame() } to="/user" className="game game_active">
-                        <h2 className="game__name">Brave Traveler</h2>
-                        <p className="game__turn">Turn 3</p>
-                        <p className="game__updated">Last Turn: a few minutes ago</p>
-                        <p className="game__contributors">Contributors: mrrobot, whiterose</p>
-                    </Link>
+                    {games.map((game, i) => {
+                        const key = game._id
 
-                    <Link onClick={ ()=> loadGame() } to="/user" className="game game_inactive">
-                        <h2 className="game__name">Befuddled Housekeeper</h2>
-                        <p className="game__turn">Turn 12</p>
-                        <p className="game__updated">Last Turn: yesterday</p>
-                        <p className="game__password">Password enabled</p>
-                        <p className="game__alert">Another player is on turn</p>
-                        <p className="game__contributors">Contributors: Blahblahblah1, Blahblahblah2, Blahblahblah3, Blahblahblah4, Blahblahblah5, Blahblahblah6, Blahblahblah7, Blahblahblah8, Blahblahblah9, Blahblahblah10</p>
-                    </Link>
+                        return(
+                            <Link key={key} onClick={loadGame} to="/user" className={game.active ? "game" : "game game_inactive"}>
+                                <h2 className="game__name">{game.name}</h2>
+                                <p className="game__turn">{`Turn ${game.turn}`}</p>
+                                <p className="game__updated">Last Turn: <Moment format="MMM Do" fromNow="true">{game.lastTurn}</Moment></p>
+                                {game.password ? <p className="game__password">Password enabled</p> : null}
+                                {game.active ? null : <p className="game__alert">Another player is on turn</p>}
+                                <p className="game__contributors">Contributors:
 
-                    <Link onClick={ ()=> loadGame() } to="/user" className="game game_active">
-                        <h2 className="game__name">Crazy Unicorn</h2>
-                        <p className="game__turn">Turn 2</p>
-                        <p className="game__updated">Last Turn: May 10th</p>
-                        <p className="game__contributors">Contributors: dumbo</p>
-                    </Link>
+                                    {game.contributorNames.map((name, i) => {
+                                        const key = `name--${i}`
 
+                                        return(
+                                            <span key={key}> {name}{i === game.contributorNames.length-1 ? null : ',' }</span>
+                                        )
+                                    })}
+                                </p>
+                            </Link>
+                        )
+                    })}
                 </div>
             </main>
         </>

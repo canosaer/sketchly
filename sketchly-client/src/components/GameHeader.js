@@ -54,7 +54,7 @@ export default function GameHeader(props) {
                 </div>
             </div>
             <div className={dimmerStyles}></div>
-            <h2 className="game-header__prompt">{props.mode === 'draw' ? `Draw: ${state.game.phrases ? state.game.phrases[state.game.phrases.length-1] : null}` : 'What do you think this drawing is?'}</h2>
+            <h2 className="game-header__prompt">{props.mode === 'draw' ? `Draw: ${props.prompt ? props.prompt : '...'}` : 'What do you think this drawing is?'}</h2>
         </header>
     )
 }

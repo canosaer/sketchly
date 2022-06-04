@@ -22,9 +22,6 @@ export default function User() {
         }
 
         axios.patch(`${url}/games/${state.game.name}`, payload)
-            .then(()=>{
-                console.log('user info inserted')
-            })
             .catch((err)=>{
                 console.log(err.message, err.code)
             })

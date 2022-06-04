@@ -76,7 +76,7 @@ app.patch('/games/:name', async (req, res) => {
         game.contributorNames.push(req.body.userName)
         game.turn = game.turn + 1
         game.lastUpdated = Date.now()
-        game.lastTurn = game.lastUpdated
+        game.lastTurn = Date.now()
         game.save()
       }
     })
@@ -88,8 +88,7 @@ app.patch('/games/:name', async (req, res) => {
       } else {
         const game = result
         const timeDiff = Date.now() - game.lastUpdated
-        console.log(timeDiff)
-        if( timeDiff > 50 ){          
+        if( timeDiff > 400 ){          
           game.phrases.push(req.body.phrase)
           game.lastUpdated = Date.now()
           game.save()

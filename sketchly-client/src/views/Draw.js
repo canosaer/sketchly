@@ -8,10 +8,10 @@ import { Context } from '../store/store'
 import axios from 'axios'
 
 export default function Draw() {
-    const [state, dispatch] = useContext(Context)
-    const [penColor, setPenColor] = useState('black')
-    const [eraseMode, setEraseMode] = useState(false)
-    const [prompt, setPrompt] = useState('')
+    const [ state, dispatch ] = useContext(Context)
+    const [ penColor, setPenColor ] = useState('black')
+    const [ eraseMode, setEraseMode ] = useState(false)
+    const [ prompt, setPrompt ] = useState('')
 
     const ref = useRef()
 
@@ -68,11 +68,10 @@ export default function Draw() {
         }
     }, [prompt])
 
-
     return(
         <>
             <main className="draw">
-                <GameHeader mode="draw" canvas={ref} />
+                <GameHeader mode="draw" prompt={prompt} canvas={ref} />
                 <SignatureCanvas 
                     ref={ref}
                     penColor={eraseMode ? 'white' : penColor}
@@ -98,7 +97,7 @@ export default function Draw() {
                         <figure className="palette__color palette__color_brown" onClick={() => {setEraseMode(false); setPenColor('brown')}}></figure>
                         <figure className="palette__color palette__color_erase" onClick={() => setEraseMode(!eraseMode)}><FontAwesomeIcon className="palette__icon" icon={"eraser"} /></figure>
                     </div>
-                    <SubmitButton mode="draw" payload={ref} />
+                    <SubmitButton mode="draw" payload={ref} game={state.game.name} />
                 </section>
             </main>
         </>

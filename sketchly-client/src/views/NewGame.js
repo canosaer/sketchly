@@ -19,15 +19,12 @@ export default function NewGame() {
     const url = 'http://localhost:1337'
 
     const updateState = async () => {
-        let gameData = {}
-
         try {
-            gameData = await axios.get(`${url}/games/${name}`)
+            const gameData = await axios.get(`${url}/games/${name}`)
+            dispatch ({type: 'LOAD_GAME', payload: gameData.data})
         } catch (err) {
             console.log(err.message, err.code)
         }
-
-        dispatch ({type: 'LOAD_GAME', payload: gameData.data})
     }
 
     const createGame = async () => {

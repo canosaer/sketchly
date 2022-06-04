@@ -11,7 +11,6 @@ export default function GameHeader(props) {
     const [ clicked, setClicked ] = useState(false)
     const [ userName, setUserName ] = useLocalStorage('userName', '')
     const [ userID, setUserID ] = useLocalStorage('userID', '')
-    const [ submitted, setSubmitted ] = useState(false)
 
     const dimmerStyles = clicked ? 'dimmer dimmer_open' : 'dimmer'
     const transitionStyles = clicked ? 'transition transition_open' : 'transition'
@@ -19,25 +18,23 @@ export default function GameHeader(props) {
     const url = 'http://localhost:1337'
 
     const saveGame = () => {
-        if(!submitted){
-            if(props.mode === 'draw'){
-                const image = JSON.stringify(props.payload.current.toData())
-    
-                const payload = {
-                    action: 'ADD_DRAW_TURN',
-                    image: image,
-                    userName: userName,
-                }
-        
-                axios.patch(`${url}/games/${state.game.name}`, payload)
-                    .then(()=>{
-                        setSubmitted(true)
-                        console.log('turn sent')
-                    })
-                    .catch((err)=>{
-                        console.log(err.message, err.code)
-                    })
+
+        if(props.mode === 'draw'){
+            const image = JSON.stringify(props.payload.current.toData())
+
+            const payload = {
+                action: 'ADD_DRAW_TURN',
+                image: image,
+                userName: userName,
             }
+    
+            axios.patch(`${url}/games/${props.game}`, payload)
+                .then(()=>{
+                    console.log('turn sent')
+                })
+                .catch((err)=>{
+                    console.log(err.message, err.code)
+                })
         }
 
     }
