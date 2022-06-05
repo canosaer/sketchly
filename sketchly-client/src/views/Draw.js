@@ -17,40 +17,21 @@ export default function Draw() {
 
     const url = 'http://localhost:1337'
 
-    const updateState = async (gamePhrase) => {
-        const payload = {
-            action: 'ADD_PHRASE',
-            phrase: gamePhrase,
-        }
-
-        axios.patch(`${url}/games/${state.game.name}`, payload)
-            .then(()=>{
-                console.log('game phrase added')
-            })
-            .catch((err)=>{
-                console.log(err.message, err.code)
-            })
-    }
-
     const getNewPrompt = async () => {
         try {
             const response = await axios.get(`${url}/phrases`)
             setPrompt(response.data.content)
-            updateState(response.data.content)
         } catch (err) {
             console.log(err.message, err.code)
         }
 
     }
 
-
     const loadPrompt = async () => {
         try {
             const response = await axios.get(`${url}/games/${state.game.name}`)
-            console.log(response)
             if(response.data.prompt){
                 setPrompt(response.data.content)
-                updateState(response.data.content)
             } 
             else{
                 getNewPrompt()
@@ -97,7 +78,7 @@ export default function Draw() {
                         <figure className="palette__color palette__color_brown" onClick={() => {setEraseMode(false); setPenColor('brown')}}></figure>
                         <figure className="palette__color palette__color_erase" onClick={() => setEraseMode(!eraseMode)}><FontAwesomeIcon className="palette__icon" icon={"eraser"} /></figure>
                     </div>
-                    <SubmitButton mode="draw" payload={ref} game={state.game.name} />
+                    <SubmitButton mode="draw" phrase={prompt} payload={ref} />
                 </section>
             </main>
         </>

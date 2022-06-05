@@ -26,9 +26,12 @@ export default function GameHeader(props) {
                 action: 'ADD_DRAW_TURN',
                 image: image,
                 userName: userName,
+                phrase: props.phrase,
             }
+
+            console.log(payload)
     
-            axios.patch(`${url}/games/${props.game}`, payload)
+            axios.patch(`${url}/games/${state.game.name}`, payload)
                 .then(()=>{
                     console.log('turn sent')
                 })

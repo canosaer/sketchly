@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Context } from '../store/store'
-import { useIdentifier } from '../utilities'
+import { useIdentifier, useLocalStorage } from '../utilities'
 import axios from 'axios'
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -12,6 +12,7 @@ export default function CurrentGames() {
     const [ state, dispatch ] = useContext(Context)
     const [ games, setGames ] = useState([])
     const [ init, setInit ] = useState(false)
+    const [ userID, setUserID ] = useLocalStorage('userID', '')
 
     const identity = useIdentifier()
 
@@ -32,11 +33,17 @@ export default function CurrentGames() {
     const retrieveGames = async () => {
         try {
           const response = await axios.get(`${url}/games`)
-          console.log(response)
           setGames(response.data)
         } catch (err) {
           console.log(err.message, err.code)
         }
+    }
+
+    const validateAvailability = (game) => {
+        
+        // else if(!game.active) setAlert('Another player is on turn')
+        // else setAlert('')
+        console.log(game.accessedBy.includes(userID))
     }
 
     useEffect(() => {
@@ -58,12 +65,13 @@ export default function CurrentGames() {
                         const key = game._id
 
                         return(
-                            <Link key={key} onClick={loadGame} to="/user" className={game.active ? "game" : "game game_inactive"}>
+                            <Link key={key} onClick={loadGame} to="/user" className={!game.active ? "game game_inactive" : "game" }>
+                            {/* <Link key={key} onClick={loadGame} to="/user" className={game.accessedBy.includes(userID) || !game.active ? "game game_inactive" : "game" }> */}
                                 <h2 className="game__name">{game.name}</h2>
                                 <p className="game__turn">{`Turn ${game.turn}`}</p>
                                 <p className="game__updated">Last Turn: <Moment format="MMM Do" fromNow="true">{game.lastTurn}</Moment></p>
                                 {game.password ? <p className="game__password">Password enabled</p> : null}
-                                {game.active ? null : <p className="game__alert">Another player is on turn</p>}
+                                {!game.active ? <p className="game__alert">Another player is on turn</p> : game.accessedBy.includes(userID) ? <p className="game__alert">You have already contributed</p> : null}
                                 <p className="game__contributors">Contributors:
 
                                     {game.contributorNames.map((name, i) => {

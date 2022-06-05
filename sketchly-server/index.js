@@ -74,29 +74,15 @@ app.patch('/games/:name', async (req, res) => {
         const game = result
         game.images.push(req.body.image)
         game.contributorNames.push(req.body.userName)
+        if(game.turn === 1) game.phrases.push(req.body.phrase)
         game.turn = game.turn + 1
         game.lastUpdated = Date.now()
         game.lastTurn = Date.now()
+        game.active = true
         game.save()
       }
     })
   }
-  else if(req.body.action === 'ADD_PHRASE'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
-      if (err) {
-        res.send(err)
-      } else {
-        const game = result
-        const timeDiff = Date.now() - game.lastUpdated
-        if( timeDiff > 400 ){          
-          game.phrases.push(req.body.phrase)
-          game.lastUpdated = Date.now()
-          game.save()
-        }
-      }
-    })
-  }
-
 
 })
 
