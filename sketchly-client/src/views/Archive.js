@@ -5,6 +5,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Archive() {
     
+
+    // const updateState = async () => {
+    //     try {
+    //         const gameData = await axios.get(`${url}/games/${name}`)
+    //         dispatch ({type: 'LOAD_GAME', payload: gameData.data})
+    //     } catch (err) {
+    //         console.log(err.message, err.code)
+    //     }
+    // }
+
     return(
         <>
             <main className="archive">

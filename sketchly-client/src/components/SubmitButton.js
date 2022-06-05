@@ -19,27 +19,19 @@ export default function GameHeader(props) {
 
     const saveGame = () => {
 
-        if(props.mode === 'draw'){
-            const image = JSON.stringify(props.payload.current.toData())
+        const image = JSON.stringify(props.payload.current.toData())
 
-            const payload = {
-                action: 'ADD_DRAW_TURN',
-                image: image,
-                userName: userName,
-                phrase: props.phrase,
-            }
-
-            console.log(payload)
-    
-            axios.patch(`${url}/games/${state.game.name}`, payload)
-                .then(()=>{
-                    console.log('turn sent')
-                })
-                .catch((err)=>{
-                    console.log(err.message, err.code)
-                })
+        const payload = {
+            mode: props.mode,
+            image: image,
+            userName: userName,
+            phrase: props.phrase,
         }
 
+        axios.patch(`${url}/games/${state.game.name}`, payload)
+            .catch((err)=>{
+                console.log(err.message, err.code)
+            })
     }
 
     const lockScroll = () => {
@@ -74,7 +66,7 @@ export default function GameHeader(props) {
             <div className={transitionStyles}>
                 <div className="transition__content">
                     <h2 className="transition__heading">{props.mode === 'draw' ? 'Drawing submitted!' : 'Guess submitted!'}</h2>
-                    <Link to="/current-games" className="transition__link">Continue</Link>
+                    <Link to="/game-history" className="transition__link">View Turns</Link>
                 </div>
             </div>
             <button onClick={() => setClicked(true)} className="draw__submit">

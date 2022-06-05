@@ -66,7 +66,7 @@ app.patch('/games/:name', async (req, res) => {
     GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
     res.send('access updated')
   }
-  else if(req.body.action === 'ADD_DRAW_TURN'){
+  else if(req.body.mode === 'draw'){
     GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
       if (err) {
         res.send(err)
