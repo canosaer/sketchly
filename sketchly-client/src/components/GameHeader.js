@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Timer from './Timer'
 import { Context } from '../store/store'
+import axios from 'axios'
 
 export default function GameHeader(props) {
 
@@ -14,6 +15,8 @@ export default function GameHeader(props) {
 
     const dimmerStyles = quitMenuOpen ? 'dimmer dimmer_open' : 'dimmer'
     const quitStyles = quitMenuOpen ? 'quit quit_open' : 'quit'
+
+    const url = 'http://localhost:1337'
 
     const lockScroll = () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop
@@ -27,6 +30,13 @@ export default function GameHeader(props) {
 
     const unlockScroll = () => {
         window.onscroll = function() {}
+    }
+
+    const reactivateGame = () => {
+        axios.patch(`${url}/games/${state.game.name}`, {action: 'REACTIVATE'})
+            .catch((err)=>{
+                console.log(err.message, err.code)
+            })
     }
 
     useEffect(() => {
@@ -50,7 +60,7 @@ export default function GameHeader(props) {
                 <div className="quit__content">
                     <h2 className="quit__heading">Are you sure you want to quit?</h2>
                     <button className="quit__button quit__button_cancel" onClick={() => setQuitMenuOpen(false)}>Cancel</button>
-                    <Link to="/current-games" className="quit__link"><button className="quit__button quit__button_confirm">Quit</button></Link>
+                    <Link to="/current-games" onClick={()=>reactivateGame()} className="quit__link"><button className="quit__button quit__button_confirm">Quit</button></Link>
                 </div>
             </div>
             <div className={dimmerStyles}></div>

@@ -72,12 +72,40 @@ app.patch('/games/:name', async (req, res) => {
         res.send(err)
       } else {
         const game = result
-        game.images.push(req.body.image)
-        game.contributorNames.push(req.body.userName)
-        if(game.turn === 1) game.phrases.push(req.body.phrase)
-        game.turn = game.turn + 1
-        game.lastUpdated = Date.now()
-        game.lastTurn = Date.now()
+        if(!game.active){
+          game.images.push(req.body.image)
+          game.contributorNames.push(req.body.userName)
+          if(game.turn === 1) game.phrases.push(req.body.phrase)
+          game.turn = game.turn + 1
+          game.lastUpdated = Date.now()
+          game.lastTurn = Date.now()
+          game.active = true
+          game.save()
+        }
+      }
+    })
+  }
+  else if(req.body.action === 'DEACTIVATE'){
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result
+        const currentTurn = game.turn
+        game.active = false
+        setTimeout(() => {
+          if(!game.active && game.turn === currentTurn) game.active = true
+        }, "600000")
+        game.save()
+      }
+    })
+  }
+  else if(req.body.action === 'REACTIVATE'){
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result
         game.active = true
         game.save()
       }

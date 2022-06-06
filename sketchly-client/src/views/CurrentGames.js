@@ -18,16 +18,15 @@ export default function CurrentGames() {
 
     const url = 'http://localhost:1337'
 
-    const loadGame = () => {
-        // let gameData = {}
+    const loadGame = (index) => {
 
-        // try {
-        //     gameData = await axios.get(`${url}/${name}`)
-        // } catch (err) {
-        //     console.log(err.message, err.code)
-        // }
+        axios.patch(`${url}/games/${games[index].name}`, {action: 'DEACTIVATE'})
+        .catch((err)=>{
+            console.log(err.message, err.code)
+        })
 
-        // dispatch ({type: 'LOAD_GAME', payload: gameData.data[0]})
+
+        dispatch ({type: 'LOAD_GAME', payload: games[index]})
     }
 
     const retrieveGames = async () => {
@@ -65,7 +64,7 @@ export default function CurrentGames() {
                         const key = game._id
 
                         return(
-                            <Link key={key} onClick={loadGame} to="/user" className={!game.active ? "game game_inactive" : "game" }>
+                            <Link key={key} onClick={() => loadGame(i)} to="/user" className={!game.active ? "game game_inactive" : "game" }>
                             {/* <Link key={key} onClick={loadGame} to="/user" className={game.accessedBy.includes(userID) || !game.active ? "game game_inactive" : "game" }> */}
                                 <h2 className="game__name">{game.name}</h2>
                                 <p className="game__turn">{`Turn ${game.turn}`}</p>
