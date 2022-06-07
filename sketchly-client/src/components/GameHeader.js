@@ -53,7 +53,7 @@ export default function GameHeader(props) {
 
     return(
         <header className="game-header">
-            <button className="game-header__button game-header__button_reset" onClick={() => props.mode === 'draw' ? props.canvas.current.clear() : props.guessInput.current.value = ''} ><FontAwesomeIcon className="game-header__icon game-header__icon_reset" icon={"rotate-right"} /></button>
+            <button className="game-header__button game-header__button_reset" onClick={() => props.mode === 'draw' ? props.canvas.current.clear() : props.labelInput.current.value = ''} ><FontAwesomeIcon className="game-header__icon game-header__icon_reset" icon={"rotate-right"} /></button>
             <Timer expiryTimestamp={time} />
             <button className="game-header__button game-header__button_quit" onClick={() => setQuitMenuOpen(!quitMenuOpen)}><FontAwesomeIcon className="game-header__icon header__icon_quit" icon={"xmark"} /></button>
             <div className={quitStyles}>
@@ -64,7 +64,7 @@ export default function GameHeader(props) {
                 </div>
             </div>
             <div className={dimmerStyles}></div>
-            <h2 className="game-header__prompt">{props.mode === 'draw' ? `Draw: ${props.prompt ? props.prompt : '...'}` : 'What do you think this drawing is?'}</h2>
+            <h2 className="game-header__prompt">{props.mode === 'draw' ? `Draw: ${props.prompt ? props.prompt : '...'}` : 'Label the drawing'}</h2>
         </header>
     )
 }

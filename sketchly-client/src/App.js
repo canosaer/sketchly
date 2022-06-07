@@ -11,7 +11,7 @@ import CurrentGames from './views/CurrentGames'
 import NewGame from './views/NewGame'
 import User from './views/User'
 import Draw from './views/Draw'
-import Guess from './views/Guess'
+import Label from './views/Label'
 import Archive from './views/Archive'
 import GameHistory from './views/GameHistory'
 
@@ -39,7 +39,7 @@ function App() {
           <Route path="/new" element={<NewGame />} />
           <Route path="/user" element={<User />} />
           <Route path="/draw" element={<Draw />} />
-          <Route path="/guess" element={<Guess />} />
+          <Route path="/label" element={<Label />} />
           <Route path="/archive" element={<Archive />} />
           <Route path="/game-history" element={<GameHistory />} />
         </Routes>

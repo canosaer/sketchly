@@ -14,7 +14,7 @@
         width: 100%;
         display: flex;
         justify-content: space-evenly;
-        margin-bottom: 2rem;
+        margin: 2rem 0;
     }
 
     &__link{
@@ -34,7 +34,7 @@
         text-align: center;
         font-size: 2.45em;
         color: var(--dark-blue);
-        margin-bottom: 1.25rem;
+        margin-bottom: 2rem;
     }
 
     &__word{
@@ -42,11 +42,31 @@
         place-self: center center;
         font-size: 1.75rem;
         margin: 0 2rem 2rem;
+        position: relative;
+    }
+
+    &__canvas-container{
+        position: relative;
     }
 
     &__canvas{
         pointer-events: none;
         margin-bottom: 2rem;
+    }
+
+    &__user{
+        position: absolute;
+        border-radius: 999rem;
+        width: max-content;
+        font-size: 1rem;
+        top: 0.2rem;
+        left: 0.25rem;
+        opacity: 0.95;
+
+        &_word{
+            top: -1rem;
+            left: 0;
+        }
     }
 
     &__loading{

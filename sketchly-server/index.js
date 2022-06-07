@@ -66,25 +66,6 @@ app.patch('/games/:name', async (req, res) => {
     GameModel.findOneAndUpdate({name: req.params.name}, { $push: { accessedBy: req.body.userID } })
     res.send('access updated')
   }
-  else if(req.body.mode === 'draw'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
-      if (err) {
-        res.send(err)
-      } else {
-        const game = result
-        if(!game.active){
-          game.images.push(req.body.image)
-          game.contributorNames.push(req.body.userName)
-          if(game.turn === 1) game.phrases.push(req.body.phrase)
-          game.turn = game.turn + 1
-          game.lastUpdated = Date.now()
-          game.lastTurn = Date.now()
-          game.active = true
-          game.save()
-        }
-      }
-    })
-  }
   else if(req.body.action === 'DEACTIVATE'){
     GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
       if (err) {
@@ -111,6 +92,44 @@ app.patch('/games/:name', async (req, res) => {
       }
     })
   }
+  else if(req.body.mode === 'draw'){
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result
+        if(!game.active){
+          game.images.push(req.body.image)
+          game.contributorNames.push(req.body.userName)
+          if(game.turn === 1) game.phrases.push(req.body.phrase)
+          game.turn = game.turn + 1
+          game.lastUpdated = Date.now()
+          game.lastTurn = Date.now()
+          game.active = true
+          game.save()
+        }
+      }
+    })
+  }
+  else if(req.body.mode === 'label'){
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+      if (err) {
+        res.send(err)
+      } else {
+        const game = result
+        if(!game.active){
+          game.contributorNames.push(req.body.userName)
+          game.phrases.push(req.body.phrase)
+          game.turn = game.turn + 1
+          game.lastUpdated = Date.now()
+          game.lastTurn = Date.now()
+          game.active = true
+          game.save()
+        }
+      }
+    })
+  }
+
 
 })
 

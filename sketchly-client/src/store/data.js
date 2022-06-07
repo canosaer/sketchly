@@ -1,5 +1,5 @@
 const data = {
-    dest: '',
+    origin: '',
     game: {},
     prompt: '',
     submit: false,

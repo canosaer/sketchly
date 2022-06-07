@@ -16,14 +16,19 @@ export default function GameHistory() {
 
     const url = 'http://localhost:1337'
 
-    const ref = useRef()
+    const ref = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef(),]
 
     const loadGame = async () => {
-        try {
-            const gameData = await axios.get(`${url}/games/${state.game.name}`)
-            setGame(gameData.data)
-        } catch (err) {
-            console.log(err.message, err.code)
+        if(state.origin === 'submit'){
+            setGame(state.game)
+        }
+        else{
+            try {
+                const gameData = await axios.get(`${url}/games/${state.game.name}`)
+                setGame(gameData.data)
+            } catch (err) {
+                console.log(err.message, err.code)
+            }
         }
     }
 
@@ -37,10 +42,11 @@ export default function GameHistory() {
 
     useEffect(() => {
         if(game.phrases && !turns[0]){
-            let gameTurns = []
-            for(let i=0;i<6;i++){
-                if(game.phrases[i]) gameTurns.push(game.phrases[i])
-                if(game.images[i]) gameTurns.push(game.images[i])
+            let gameTurns = [{phrase: game.phrases[0]}, {image: game.images[0], user: game.contributorNames[0]}]
+            
+            for(let i=1;i<6;i++){
+                if(game.phrases[i]) gameTurns.push({phrase: game.phrases[i], user: game.contributorNames[gameTurns.length-1] })
+                if(game.images[i]) gameTurns.push({image: game.images[i], user: game.contributorNames[gameTurns.length-1]})
             }
             setTurns(gameTurns)
         }
@@ -62,14 +68,14 @@ export default function GameHistory() {
                 
                         if(i%2 === 0){
                             return(
-                                <h2 key={key} className="history__word">{turn}</h2>
+                                <h2 key={key} className="history__word">{turn.phrase}{turn.user ? <aside className="history__user history__user_word">{turn.user}:</aside> : null}</h2>
                             )
                         }
                         else{
                             return(
-                                <div key={key}>
+                                <div className='history__canvas-container' key={key}>
                                     <SignatureCanvas
-                                        ref={ref}
+                                        ref={ref[Math.floor(i/2)]}
                                         canvasProps={{
                                             width: 414,
                                             height: 414, 
@@ -77,7 +83,8 @@ export default function GameHistory() {
                                         }}
                                         backgroundColor='rgb(255,255,255)'
                                     />
-                                    {loadImage(ref, turn)}
+                                    {loadImage(ref[Math.floor(i/2)], turn.image)}
+                                    <aside className="history__user history__user_image">{turn.user}:</aside>
                                 </div>
                             )
                         }

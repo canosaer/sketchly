@@ -78,7 +78,7 @@ export default function Draw() {
                         <figure className="palette__color palette__color_brown" onClick={() => {setEraseMode(false); setPenColor('brown')}}></figure>
                         <figure className="palette__color palette__color_erase" onClick={() => setEraseMode(!eraseMode)}><FontAwesomeIcon className="palette__icon" icon={"eraser"} /></figure>
                     </div>
-                    <SubmitButton mode="draw" phrase={prompt} payload={ref} />
+                    <SubmitButton mode="draw" phrase={prompt} image={ref} />
                 </section>
             </main>
         </>

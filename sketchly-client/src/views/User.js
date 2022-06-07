@@ -41,7 +41,7 @@ export default function User() {
                     onChange={(e) => setUserName(e.target.value)}
                 />
                 <p onFocus={()=>!touched ? setTouched(true) : null} className={ !userName && touched ? "user__error" : "user__error transparent"}>Required</p>
-                <Link onClick={ userName ? enterGame : null } to={ userName ? state.game.turn % 2 === 0 ? '/guess' : '/draw' : '/user' } className="user__submit">Ready!</Link>
+                <Link onClick={ userName ? enterGame : null } to={ userName ? state.game.turn % 2 === 0 ? '/label' : '/draw' : '/user' } className="user__submit">Ready!</Link>
             </main>
         </>
         

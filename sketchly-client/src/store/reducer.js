@@ -1,9 +1,9 @@
 const reducer = (state, action) => {
     switch(action.type) {
-        case 'UPDATE_DEST':
+        case 'UPDATE_ORIGIN':
             return {
                 ...state,
-                dest: action.payload
+                origin: action.payload
             }
         case 'LOAD_GAME':
             return {

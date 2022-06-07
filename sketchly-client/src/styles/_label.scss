@@ -1,7 +1,7 @@
 @use 'variables';
 @use 'mixins';
 
-.guess{
+.label{
     @include mixins.page-formatting;
     grid-auto-rows: max-content;
 

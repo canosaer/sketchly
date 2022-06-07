@@ -5,36 +5,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useWindowDimensions } from '../utilities'
 import { Context } from '../store/store'
 import GameHeader from '../components/GameHeader'
+import SubmitButton from '../components/SubmitButton'
 
 
-export default function Guess(props) {
+export default function Label(props) {
 
-    const [state, dispatch] = useContext(Context)
-    const [guess, setGuess ] = useState('')
+    const [ state, dispatch ] = useContext(Context)
+    const [ label, setLabel ] = useState('')
 
     const canvas = useRef()
-    const guessInput = useRef()
+    const labelInput = useRef()
+
+    useEffect(() => {
+        canvas.current.fromData(JSON.parse(state.game.images[state.game.images.length-1]))
+    }, [state])
 
     return(
         <>
-            <main className="guess">
-                <GameHeader mode="guess" canvas={canvas} guessInput={guessInput}/>
+            <main className="label">
+                <GameHeader mode="label" canvas={canvas} labelInput={labelInput}/>
                 <SignatureCanvas 
                     ref={canvas}
                     canvasProps={{
                         // width: useWindowDimensions().width, 
                         width: 414,
                         height: 414, 
-                        className: 'guess__canvas'
+                        className: 'label__canvas'
                     }}
                     backgroundColor='rgb(255,255,255)'
                 />
-                <input className="guess__input" type="text" 
-                    ref={guessInput}
-                    value={guess}
-                    onChange={(e) => setGuess(e.target.value)}
+                <input className="label__input" type="text" 
+                    ref={labelInput}
+                    value={label}
+                    onChange={(e) => setLabel(e.target.value)}
                 />
-                <button className="guess__submit"><FontAwesomeIcon className="guess__submit-icon" icon={"check"} /><span className="guess__submit-text">Done!</span></button>
+                <SubmitButton mode="label" phrase={label} image={canvas} />
             </main>
         </>
         
