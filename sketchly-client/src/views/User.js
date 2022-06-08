@@ -27,9 +27,9 @@ export default function User() {
             })
     }
 
-    useEffect(() => {
-        console.log(state)
-    }, [state])
+    // useEffect(() => {
+    //     console.log(state)
+    // }, [state])
 
     return(
         <>

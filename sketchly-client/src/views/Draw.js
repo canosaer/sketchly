@@ -28,10 +28,12 @@ export default function Draw() {
     }
 
     const loadPrompt = async () => {
+        console.log('loadPrompt')
         try {
             const response = await axios.get(`${url}/games/${state.game.name}`)
-            if(response.data.prompt){
-                setPrompt(response.data.content)
+            console.log(response)
+            if(response.data.phrases[0]){
+                setPrompt(response.data.phrases[response.data.phrases.length-1])
             } 
             else{
                 getNewPrompt()

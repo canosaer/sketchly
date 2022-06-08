@@ -34,29 +34,28 @@ export default function GameHeader(props) {
                 console.log(err.message, err.code)
             })
 
-        console.log(state)
+        console.log('data sent')
 
-        if(!saved){
-            let gameObject = {
-                contributorNames: state.game.contributorNames,
-                name: state.game.name,
-            }
-            gameObject.contributorNames.push(userName)
-            if(state.game.turn === 1){
-                gameObject.images = []
-                gameObject.images.push(image)
-                gameObject.phrases = []
-                gameObject.phrases.push(props.phrase)
-            }
-            else{
-                gameObject.images = state.game.images
-                gameObject.phrases = state.game.phrases
-                if(props.mode==="draw") gameObject.images.push(image)
-                else if(props.mode==="label") gameObject.phrases.push(props.phrase)
-            }
-            dispatch ({type: 'LOAD_GAME', payload: gameObject})
-            dispatch ({type: 'UPDATE_ORIGIN', payload: 'submit'})
+
+        let gameObject = {
+            contributorNames: state.game.contributorNames,
+            name: state.game.name,
         }
+        gameObject.contributorNames.push(userName)
+        if(state.game.turn === 1){
+            gameObject.images = []
+            gameObject.images.push(image)
+            gameObject.phrases = []
+            gameObject.phrases.push(props.phrase)
+        }
+        else{
+            gameObject.images = state.game.images
+            gameObject.phrases = state.game.phrases
+            if(props.mode==="draw") gameObject.images.push(image)
+            else if(props.mode==="label") gameObject.phrases.push(props.phrase)
+        }
+        dispatch ({type: 'LOAD_GAME', payload: gameObject})
+        dispatch ({type: 'UPDATE_ORIGIN', payload: 'submit'})
         setSaved(true)
 
 
@@ -81,7 +80,6 @@ export default function GameHeader(props) {
             if(!clicked) setClicked(true)
             window.scrollTo(0,0)
             lockScroll()
-            saveGame()
         }
         else{
             unlockScroll()
@@ -94,7 +92,7 @@ export default function GameHeader(props) {
             <div className={transitionStyles}>
                 <div className="transition__content">
                     <h2 className="transition__heading">{props.mode === 'draw' ? 'Drawing submitted!' : 'Guess submitted!'}</h2>
-                    <Link to="/game-history" className="transition__link">View Turns</Link>
+                    <Link to="/game-history" onMouseOver={!saved ? () => saveGame() : null} className="transition__link">View Turns</Link>
                 </div>
             </div>
             <button onClick={() => setClicked(true)} className="draw__submit">
