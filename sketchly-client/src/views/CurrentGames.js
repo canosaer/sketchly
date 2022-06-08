@@ -32,7 +32,7 @@ export default function CurrentGames() {
     const retrieveGames = async () => {
         try {
           const response = await axios.get(`${url}/games`)
-          setGames(response.data)
+          setGames(response.data.filter(game => game.turn < 12))
         } catch (err) {
           console.log(err.message, err.code)
         }
