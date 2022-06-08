@@ -1,19 +1,42 @@
-import React, { useEffect} from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from 'axios'
+import Moment from 'react-moment';
+import 'moment-timezone';
+import {  useLocalStorage } from '../utilities'
+import { Context } from '../store/store'
 
 export default function Archive() {
+    const [ state, dispatch ] = useContext(Context)
+    const [ games, setGames ] = useState([])
+    const [ init, setInit ] = useState(false)
+    const [ userID, setUserID ] = useLocalStorage('userID', '')
     
+    const url = 'http://localhost:1337'
 
-    // const updateState = async () => {
-    //     try {
-    //         const gameData = await axios.get(`${url}/games/${name}`)
-    //         dispatch ({type: 'LOAD_GAME', payload: gameData.data})
-    //     } catch (err) {
-    //         console.log(err.message, err.code)
-    //     }
-    // }
+    const loadGame = (index) => {
+
+        dispatch ({type: 'LOAD_GAME', payload: games[index]})
+    }
+
+    const retrieveGames = async () => {
+        try {
+          const response = await axios.get(`${url}/games`)
+          setGames(response.data.filter(game => game.turn > 11))
+        } catch (err) {
+          console.log(err.message, err.code)
+        }
+    }
+
+    useEffect(() => {
+        if(!init){
+            retrieveGames()
+            setInit(true)
+        }
+    }, [init, games])
+
 
     return(
         <>
@@ -21,23 +44,28 @@ export default function Archive() {
                 <Header />
                 <h1 className="archive__heading">Completed Games</h1>
                 <div className="archive__game-display">
-                    <Link to="/game-history" className="game">
-                        <h2 className="game__name">Brave Traveler</h2>
-                        <p className="game__updated">Last Turn: yesterday</p>
-                        <p className="game__contributors">Contributors: Mr. Robot, whiterose, unforgiven, scorpion, icegrassy, croissant, ryepudding, messier63, mayonnaise, cometsbeat, tenorikiru, peacheris</p>
-                    </Link>
 
-                    <Link to="/game-history" className="game">
-                        <h2 className="game__name">Befuddled Housekeeper</h2>
-                        <p className="game__updated">Last Turn: May 24th</p>
-                        <p className="game__contributors">Contributors: Blahblahblah1, Blahblahblah2, Blahblahblah3, Blahblahblah4, Blahblahblah5, Blahblahblah6, Blahblahblah7, Blahblahblah8, Blahblahblah9, Blahblahblah10, Blahblahblah11</p>
-                    </Link>
+                    {games.map((game, i) => {
+                        const key = game._id
 
-                    <Link to="/game-history" className="game">
-                        <h2 className="game__name">Crazy Unicorn</h2>
-                        <p className="game__updated">Last Turn: May 20th</p>
-                        <p className="game__contributors">Contributors: dumbo, theminions, cityofgod, figpeddler, trackslime, persona, orangebeef, goggles, biscuits, cloverlog, blackeye, delphinus</p>
-                    </Link>
+                        return(
+                            <Link key={key} onClick={() => loadGame(i)} to="/game-history" className="game">
+                                <h2 className="game__name">{game.name}</h2>
+                                <p className="game__updated">Last Turn: <Moment format="MMM Do" fromNow="true">{game.lastTurn}</Moment></p>
+                                {game.accessedBy.includes(userID) ? <p className="game__alert">You contributed</p> : null}
+                                <p className="game__contributors">Contributors:
+
+                                    {game.contributorNames.map((name, i) => {
+                                        const key = `name--${i}`
+
+                                        return(
+                                            <span key={key}> {name}{i === game.contributorNames.length-1 ? null : ',' }</span>
+                                        )
+                                    })}
+                                </p>
+                            </Link>
+                            )
+                    })}
 
                 </div>
             </main>

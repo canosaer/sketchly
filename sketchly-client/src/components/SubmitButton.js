@@ -91,7 +91,7 @@ export default function GameHeader(props) {
         <>
             <div className={transitionStyles}>
                 <div className="transition__content">
-                    <h2 className="transition__heading">{props.mode === 'draw' ? 'Drawing submitted!' : 'Guess submitted!'}</h2>
+                    <h2 className="transition__heading">{props.mode === 'draw' ? 'Drawing submitted!' : 'Label submitted!'}</h2>
                     <Link to="/game-history" onMouseOver={!saved ? () => saveGame() : null} className="transition__link">View Turns</Link>
                 </div>
             </div>
