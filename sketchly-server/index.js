@@ -52,11 +52,10 @@ app.post('/phrases', async (req, res) => {
 app.patch('/games/:name', async (req, res) => {
 
   if(req.body.action === 'UPDATE_ACCESS'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, game) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result
         game.accessedBy.push(req.body.userID)
         game.lastUpdated = Date.now()
         game.save()
@@ -67,37 +66,36 @@ app.patch('/games/:name', async (req, res) => {
     res.send('access updated')
   }
   else if(req.body.action === 'DEACTIVATE'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, game) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result
         const currentTurn = game.turn
         game.active = false
         setTimeout(() => {
           if(!game.active && game.turn === currentTurn) game.active = true
         }, "600000")
         game.save()
+        res.send(game)
       }
     })
   }
   else if(req.body.action === 'REACTIVATE'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, game) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result
         game.active = true
         game.save()
+        res.send(game)
       }
     })
   }
   else if(req.body.mode === 'draw' || req.body.mode === 'label'){
-    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, result) => {
+    GameModel.findOne({nameLower: req.params.name.toLowerCase()}, (err, game) => {
       if (err) {
         res.send(err)
       } else {
-        const game = result
         if(!game.active){
           game.contributorNames.push(req.body.userName)
           if(req.body.mode === 'draw') game.images.push(req.body.image)
@@ -109,6 +107,7 @@ app.patch('/games/:name', async (req, res) => {
           console.log(game)
           game.save()
         }
+        res.send(game)
       }
     })
   }
