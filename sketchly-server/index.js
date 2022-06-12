@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 
 const GameModel = require('./models/Games')
 const PhraseModel = require('./models/Phrases')
+const ImagesModel = require('./models/Images')
 
 mongoose.connect(process.env.DATABASE, {useNewUrlParser: true})
 
@@ -48,6 +49,19 @@ app.post('/phrases', async (req, res) => {
   
 })
 
+app.post('/images/:game', async (req, res) => {
+
+  let imageSet = new ImagesModel({
+    game: req.params.game,
+    images: [req.body.image,],
+  })
+
+  await imageSet.save()
+
+  res.send(`success`)
+
+})
+
 
 app.patch('/games/:name', async (req, res) => {
 
@@ -76,7 +90,7 @@ app.patch('/games/:name', async (req, res) => {
           if(!game.active && game.turn === currentTurn) game.active = true
         }, "600000")
         game.save()
-        res.send(game)
+        res.send('success')
       }
     })
   }
@@ -87,7 +101,7 @@ app.patch('/games/:name', async (req, res) => {
       } else {
         game.active = true
         game.save()
-        res.send(game)
+        res.send('success')
       }
     })
   }
@@ -98,16 +112,14 @@ app.patch('/games/:name', async (req, res) => {
       } else {
         if(!game.active){
           game.contributorNames.push(req.body.userName)
-          if(req.body.mode === 'draw') game.images.push(req.body.image)
           if(game.turn === 1 || req.body.mode === 'label') game.phrases.push(req.body.phrase)
           game.turn = game.turn + 1
           game.lastUpdated = Date.now()
           game.lastTurn = Date.now()
           game.active = true
-          console.log(game)
           game.save()
         }
-        res.send(game)
+        res.send('success')
       }
     })
   }
@@ -115,6 +127,19 @@ app.patch('/games/:name', async (req, res) => {
 
 })
 
+app.patch('/images/:game', async (req, res) => {
+
+  ImagesModel.findOne({game: req.params.game}, (err, imageSet) => {
+    if (err) {
+      res.send(err)
+    } else {
+      imageSet.images.push(req.body.content)
+      imageSet.save()
+      res.send('success')
+    }
+  })
+
+})
 
 app.get('/games', (req, res) => {
   GameModel.find({}, (err, result) => {
@@ -137,12 +162,24 @@ app.get('/games/:name', (req, res) => {
   })
 })
 
-app.get('/phrases', async (req, res) => {
-  PhraseModel.findOne({ available: true }, (err, result) => {
+app.get('/images/:game', (req, res) => {
+  ImagesModel.findOne({game: req.params.game}, (err, result) => {
     if (err) {
       res.send(err)
     } else {
       res.send(result)
+    }
+  })
+})
+
+app.get('/phrases', async (req, res) => {
+  PhraseModel.findOne({ available: true }, (err, phrase) => {
+    if (err) {
+      res.send(err)
+    } else {
+      phrase.available = false
+      // phrase.save()
+      res.send(phrase)
     }
   })
 })

@@ -18,15 +18,22 @@ export default function CurrentGames() {
 
     const url = 'http://localhost:1337'
 
-    const loadGame = (index) => {
+    const loadGame = async (index) => {
 
         axios.patch(`${url}/games/${games[index].name}`, {action: 'DEACTIVATE'})
-        .catch((err)=>{
-            console.log(err.message, err.code)
-        })
-
+            .catch((err)=>{
+                console.log(err.message, err.code)
+            })
 
         dispatch ({type: 'LOAD_GAME', payload: games[index]})
+
+        try {
+            const images = await axios.get(`${url}/images/${games[index].name}`)
+            console.log(images)
+            // dispatch ({type: 'LOAD_IMAGES', payload: images})
+          } catch (err) {
+            console.log(err.message, err.code)
+        }       
     }
 
     const retrieveGames = async () => {
@@ -36,13 +43,6 @@ export default function CurrentGames() {
         } catch (err) {
           console.log(err.message, err.code)
         }
-    }
-
-    const validateAvailability = (game) => {
-        
-        // else if(!game.active) setAlert('Another player is on turn')
-        // else setAlert('')
-        console.log(game.accessedBy.includes(userID))
     }
 
     useEffect(() => {

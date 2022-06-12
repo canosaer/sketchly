@@ -10,10 +10,9 @@
         @include mixins.interface-button;
         margin: 2rem 0 3.5rem;
 
-        // &:hover{
-        //     background-color: var(--baby-blue);
-        //     color: var(--dark-blue);
-        // }
+        @include mixins.landscape{
+			margin-bottom: 4rem;
+		}
     }
     
     &__new-icon{
@@ -30,8 +29,12 @@
         font-size: 1.5rem;
         font-weight: bold;
 
+        @include mixins.landscape{
+			font-size: 1.75rem;
+		}
+
         &_start{
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
     }
 
@@ -40,9 +43,7 @@
         @include mixins.game-display;
         grid-row-gap: 6.75rem;
 
-		// @include mixins.medium-screen{
-		// 	grid-column: 2/3;
-		// }
+
 	}
 
     .game{

@@ -12,6 +12,7 @@ export default function GameHistory() {
 
     const [ state, dispatch ] = useContext(Context)
     const [ game, setGame ] = useState({})
+    const [ images, setImages ] = useState([])
     const [ turns, setTurns ]  = useState([])
 
     const url = 'http://localhost:1337'
@@ -21,11 +22,15 @@ export default function GameHistory() {
     const loadGame = async () => {
         if(state.origin === 'submit'){
             setGame(state.game)
+            setImages(state.images)
         }
         else{
             try {
                 const gameData = await axios.get(`${url}/games/${state.game.name}`)
                 setGame(gameData.data)
+
+                const imageData = await axios.get(`${url}/images/${state.game.name}`)
+                setImages(imageData.data)
             } catch (err) {
                 console.log(err.message, err.code)
             }
@@ -34,6 +39,7 @@ export default function GameHistory() {
 
     const loadImage = (canvas, image) => {
         if(canvas){
+            // console.log(image)
             setTimeout(() => {
                 canvas.current.fromData(JSON.parse(image))
             }, "100")
@@ -42,11 +48,11 @@ export default function GameHistory() {
 
     useEffect(() => {
         if(game.phrases && !turns[0]){
-            let gameTurns = [{phrase: game.phrases[0]}, {image: game.images[0], user: game.contributorNames[0]}]
+            let gameTurns = [{phrase: game.phrases[0]}, {image: images[0], user: game.contributorNames[0]}]
             
             for(let i=1;i<6;i++){
                 if(game.phrases[i]) gameTurns.push({phrase: game.phrases[i], user: game.contributorNames[gameTurns.length-1] })
-                if(game.images[i]) gameTurns.push({image: game.images[i], user: game.contributorNames[gameTurns.length-1]})
+                if(images[i]) gameTurns.push({image: images[i], user: game.contributorNames[gameTurns.length-1]})
             }
             setTurns(gameTurns)
         }

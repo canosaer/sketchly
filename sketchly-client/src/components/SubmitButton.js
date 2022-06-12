@@ -22,17 +22,37 @@ export default function GameHeader(props) {
 
         const image = JSON.stringify(props.image.current.toData())
 
-        const payload = {
+        const gameData = {
             mode: props.mode,
-            image: image,
             userName: userName,
-            phrase: props.phrase,
         }
 
-        axios.patch(`${url}/games/${state.game.name}`, payload)
+        if(props.mode === 'label' || state.game.turn === 1){
+            gameData.phrase = props.phrase           
+        }
+
+        axios.patch(`${url}/games/${state.game.name}`, gameData)
             .catch((err)=>{
                 console.log(err.message, err.code)
             })
+
+        if(props.mode === 'draw'){
+            const imageData = {
+                image: image,
+            }
+            if(state.game.turn === 1){
+                axios.post(`${url}/images/${state.game.name}`, imageData)
+                    .catch((err)=>{
+                        console.log(err.message, err.code)
+                    })
+            }
+            else{
+                axios.patch(`${url}/images/${state.game.name}`, imageData)
+                    .catch((err)=>{
+                        console.log(err.message, err.code)
+                    })
+            }
+        }
 
         console.log('data sent')
 
@@ -43,15 +63,19 @@ export default function GameHeader(props) {
         }
         gameObject.contributorNames.push(userName)
         if(state.game.turn === 1){
-            gameObject.images = []
-            gameObject.images.push(image)
+            let images = []
+            images.push(image)
             gameObject.phrases = []
             gameObject.phrases.push(props.phrase)
+            dispatch ({type: 'LOAD_IMAGES', payload: images})
         }
         else{
-            gameObject.images = state.game.images
             gameObject.phrases = state.game.phrases
-            if(props.mode==="draw") gameObject.images.push(image)
+            if(props.mode==="draw"){
+                let images = state.images
+                images.push(image)
+                dispatch ({type: 'LOAD_IMAGES', payload: images})
+            }
             else if(props.mode==="label") gameObject.phrases.push(props.phrase)
         }
         dispatch ({type: 'LOAD_GAME', payload: gameObject})

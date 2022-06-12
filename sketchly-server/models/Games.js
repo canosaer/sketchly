@@ -22,9 +22,6 @@ const SketchlySchema = new mongoose.Schema({
     phrases: [{
         type: String,
     }],
-    images: [{
-        type: String,
-    }],
     active: {
         type: Boolean,
         required: true

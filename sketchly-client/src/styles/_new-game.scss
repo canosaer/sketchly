@@ -7,24 +7,45 @@
     &__heading{
         @include mixins.name-input-heading;
 
+        @include mixins.landscape{
+			font-size: 1.75rem;
+		}
+
         &_name{
             margin-top: 2rem;
+
+            @include mixins.landscape{
+                margin-top: 2.5rem;
+            }
         }
 
         &_password{
+            position: relative;
             place-self: center start;
             margin-left: 1.5rem;
             grid-row: 5/6;
             grid-column: 1/2;
+
+            @include mixins.landscape{
+                margin-left: 20%;
+            }
         }
     }
 
     &__input{
         @include mixins.text-input;
-        margin: 1.95rem 1.5rem 0.5rem;
+        margin: 1.5rem 1.5rem 0.5rem;
+
+        @include mixins.landscape{
+			margin: 1.5rem 20% 1rem;
+		}
 
         &_password{
             margin: 1rem 1.5rem 1.9rem;
+
+            @include mixins.landscape{
+                margin: 1rem 20% 1.9rem;
+            }
         }
     }
 
@@ -46,15 +67,25 @@
         @include mixins.button-text;
     }
 
+    &__switch-container{
+        position: absolute;
+        left: 7.5rem;
+        top: -0.35rem;
+
+        @include mixins.landscape{
+            left: 8.5rem;
+            top: -0.25rem;
+		}
+
+    }
+
     &__switch{
         position: relative;
         display: inline-block;
         width: 60px;
         height: 34px;
-        place-self: center start;
-        grid-row: 5/6;
-        grid-column: 1/2;
-        margin-left: 9rem;
+
+
     }
 
     &__checkbox{

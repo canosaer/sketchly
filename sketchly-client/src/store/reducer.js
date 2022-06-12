@@ -20,6 +20,11 @@ const reducer = (state, action) => {
                 ...state,
                 submit: action.payload
             }
+        case 'LOAD_IMAGES':
+            return {
+                ...state,
+                images: action.payload
+            }
         default:
             return state
     }

@@ -17,7 +17,7 @@ export default function Label(props) {
     const labelInput = useRef()
 
     useEffect(() => {
-        canvas.current.fromData(JSON.parse(state.game.images[state.game.images.length-1]))
+        canvas.current.fromData(JSON.parse(state.images[state.images.length-1]))
     }, [state])
 
     return(

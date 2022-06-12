@@ -75,7 +75,6 @@
 }
 
 @mixin page-formatting{
-  background: linear-gradient(var(--spearmint), var(--baby-blue));
   min-height: 100vh;
   font-family: var(--heading-font);
   color: var(--dark-blue);

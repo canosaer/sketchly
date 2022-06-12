@@ -7,11 +7,20 @@
     &__heading{
         @include mixins.name-input-heading;
         margin-top: 2rem;
+
+        
+        @include mixins.landscape{
+			font-size: 1.75rem;
+		}
     }
 
     &__input{
         @include mixins.text-input;
         margin: 1.95rem 1.5rem 0.5rem;
+
+        @include mixins.landscape{
+			margin: 1.95rem 20% 0.5rem;
+		}
     }
 
     &__error{
