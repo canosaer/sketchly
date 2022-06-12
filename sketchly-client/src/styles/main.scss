@@ -57,15 +57,15 @@ body{
 
 #root{
 	@include mixins.default-grid;
-	background: linear-gradient(var(--spearmint), var(--baby-blue));
 }
 
 main{
 	@include mixins.default-grid;
 	position: relative;
 	width: 100%;
-	max-width: 80rem;
+	max-width: 414px;
 	place-self: center center;
+	box-shadow: 0 20px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* 4. Utility ================================ */

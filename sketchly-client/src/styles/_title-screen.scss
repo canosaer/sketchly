@@ -2,8 +2,8 @@
 @use 'mixins';
 
 .title-screen{
-  @include mixins.page-formatting;
-  grid-template-rows: max-content auto max-content;
+    @include mixins.page-formatting;
+    grid-template-rows: max-content auto max-content;
     
 
   &__text{
@@ -13,23 +13,12 @@
     font-size: 2.05rem;
     text-align: center;
     margin: 7.1%;
-
-    @include mixins.landscape{
-      font-size: 2.45rem;
-      line-height: 1.35;
-    }
   }
 
   &__button{
     @include mixins.default-grid;
     @include mixins.interface-button;
     margin-bottom: 5rem;
-
-    @include mixins.landscape{
-      width: 12rem;
-      padding: 1rem 0;
-      font-size: 1.5rem;
-    }
   }
 
   &__button-icon{

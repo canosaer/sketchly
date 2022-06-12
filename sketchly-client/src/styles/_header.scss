@@ -11,9 +11,13 @@
     grid-template-columns: 1fr;
     grid-template-rows: 1rem;
 
-	@include mixins.landscape{
-		grid-template-rows: 3rem;
-	}
+    // @include mixins.medium-screen{
+	// 	grid-template-columns: minmax(0,1fr) minmax(0,1.5fr);
+	// }
+
+	// @include mixins.wide-screen{
+	// 	grid-template-columns: minmax(0,1fr) minmax(0,1.1fr);
+	// }
 
 	&__heading{
 		grid-row: 1/2;
@@ -22,10 +26,6 @@
 		font-family: 'India Rose', cursive;
         font-size: 1.85rem;
         color: var(--dark-blue);
-
-		@include mixins.landscape{
-			font-size: 2.75rem;
-		}
 	}
 
 	.help{
@@ -64,11 +64,6 @@
 	z-index:3;
 	transition: all 250ms ease-in-out;
 
-	@include mixins.landscape{
-		height: 1.9rem;
-		width: 1.9rem;
-	}
-
 	&_open{
 		height: unset;
 		width: unset;
@@ -80,10 +75,6 @@
     &__text{
         place-self: center center;
         font-weight: bold;
-
-		@include mixins.landscape{
-			font-size: 1.15rem;
-		}
     }
 
 	&__window{
@@ -109,10 +100,9 @@
     grid-column: 1/2;
 	position: relative;
 
-	@include mixins.landscape{
-		height: 1.75rem;
-		width: 2rem;
-	}
+	// @include mixins.medium-screen{
+	// 	display: none;
+	// }
 
 	&__bar{
 		position: absolute;
@@ -164,10 +154,34 @@
 	z-index: 2;
 	@include mixins.default-grid;
 
+	// @include mixins.medium-screen{
+	// 	position: unset;
+	// 	width: unset;
+	// 	opacity: unset;
+	// 	right: unset;
+	// 	top: unset;
+	// 	height: unset;
+	// 	padding: unset;
+	// 	transition: unset;
+	// 	visibility: unset;
+	// }
+
 	&__list{
 		margin-top: 6rem;
 		@include mixins.default-grid;
 		grid-auto-rows: 10rem;
+
+		// @include mixins.medium-screen{
+		// 	display: flex;
+		// 	margin-top: unset;
+		// 	font-size: unset;
+		// 	align-items: center;
+        //     justify-content: space-between;
+        //     overflow: hidden;
+        //     width: 100%;
+        //     max-width: 50rem;
+        //     margin-left: auto;
+		// }
 	}
 
 	&__link{
@@ -179,6 +193,15 @@
 		position: relative;
 		font-family: 'India Rose', cursive;
 		font-size: 1.6rem;
+
+		// @include mixins.medium-screen{
+		// 	font-size: var(--menu-font-size);
+		// }
+		
+
+		// &:hover{
+		// 	color: var(--dark-color);
+		// }
 
 		&:hover .menu__bar{
 			transform-origin: 0% 50%;
@@ -197,6 +220,10 @@
 		transform-origin: 100% 50%;
 		transform: scaleX(0);
 
+		// @include mixins.medium-screen{
+		// 	top: var(--bar-spacing-desktop);
+		// }
+
 	}
 
 	&_open{
@@ -214,6 +241,13 @@
 	&__item{
 		@include mixins.default-grid;
 		padding: 0 3rem;
+
+		// @include mixins.medium-screen{
+		// 	display: unset;
+		// 	justify-content: unset;
+		// 	padding-right: unset;
+		// 	text-align: center;
+		// }
 		
 	}
 }

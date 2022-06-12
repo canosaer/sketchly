@@ -80,15 +80,11 @@ export default function NewGame() {
                     onChange={(e) => setName(e.target.value)}
                 />
                 <p className={error !== 'none' ? "new-game__error" : "new-game__error transparent"}>{error}</p>
-                <h2 className="new-game__heading new-game__heading_password">Password
-                    <div className="new-game__switch-container">
-                        <label className="new-game__switch">
-                            <input className="new-game__checkbox" type="checkbox" onClick={() => {setPasswordOn(!passwordOn)}}/>
-                            <span className="new-game__slider"></span>
-                        </label>
-                    </div>
-                </h2>
-
+                <h2 className="new-game__heading new-game__heading_password">Password</h2>
+                <label className="new-game__switch">
+                    <input className="new-game__checkbox" type="checkbox" onClick={() => {setPasswordOn(!passwordOn)}}/>
+                    <span className="new-game__slider"></span>
+                </label>
                 <label className={passwordOn ? "new-game__password" : "new-game__password invisible"}>
                     <input className="new-game__input new-game__input_password" type="text" 
                         value={password}
